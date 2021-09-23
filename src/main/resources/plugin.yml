@@ -1,0 +1,11 @@
+name: AdvancedAdminGUI
+version: '${version}'
+main: me.pavelsgarklavs.advancedadmingui.AdvancedAdminGUI
+api-version: 1.17
+authors: [ Dev_Fox ]
+description: Use Advanced Admin GUI to eliminate commands and control your server with ease
+website: pavelsgarklavs.me
+commands:
+  admin:
+    description: Open a Admin GUI
+    usage: /<command>
