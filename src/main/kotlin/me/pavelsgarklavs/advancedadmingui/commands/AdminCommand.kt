@@ -3,6 +3,8 @@ package me.pavelsgarklavs.advancedadmingui.commands
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.ChatColor
 import org.bukkit.GameMode
 import org.bukkit.Material
@@ -24,7 +26,7 @@ class AdminCommand: CommandExecutor {
             /* GUI */
             val gui: Gui = Gui.gui()
                 .rows(6)
-                .title(Component.text("${ChatColor.RED}${ChatColor.BOLD}Admin GUI"))
+                .title(Component.text("Admin GUI", NamedTextColor.RED, TextDecoration.BOLD))
                 .create()
 
             gui.setDefaultClickAction { event -> event.isCancelled = true}
@@ -32,19 +34,19 @@ class AdminCommand: CommandExecutor {
             /* GUI Borders */
             gui.filler.fillBorder(ItemBuilder
                 .from(Material.BLACK_STAINED_GLASS_PANE)
-                .name(Component.text("${ChatColor.RED}${ChatColor.BOLD}X"))
+                .name(Component.text("X", NamedTextColor.RED, TextDecoration.BOLD))
                 .asGuiItem())
 
             val borderItem = ItemBuilder
                 .from(Material.BLACK_STAINED_GLASS_PANE)
-                .name(Component.text("${ChatColor.RED}${ChatColor.BOLD}X"))
+                .name(Component.text("X", NamedTextColor.RED, TextDecoration.BOLD))
                 .asGuiItem()
 
             /* Creative Mode */
             val creativeItem = ItemBuilder
                 .from(Material.GOLDEN_APPLE)
-                .name(Component.text("${ChatColor.GOLD}${ChatColor.BOLD}Creative Mode"))
-                .asGuiItem { event: InventoryClickEvent ->
+                .name(Component.text("Creative Mode", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.creative")) {
                         if (player.gameMode !== GameMode.CREATIVE) {
                             player.gameMode = GameMode.CREATIVE
@@ -71,8 +73,8 @@ class AdminCommand: CommandExecutor {
             /* Survival Mode */
             val survivalItem = ItemBuilder
                 .from(Material.BREAD)
-                .name(Component.text("${ChatColor.AQUA}${ChatColor.BOLD}Survival Mode"))
-                .asGuiItem { event: InventoryClickEvent ->
+                .name(Component.text("Survival Mode", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.survival")) {
                         player.gameMode = GameMode.SURVIVAL
                         gui.close(player)
@@ -89,8 +91,8 @@ class AdminCommand: CommandExecutor {
             /* Spectator Mode */
             val spectatorItem = ItemBuilder
                 .from(Material.ENDER_EYE)
-                .name(Component.text("${ChatColor.LIGHT_PURPLE}${ChatColor.BOLD}Spectator Mode"))
-                .asGuiItem { event: InventoryClickEvent ->
+                .name(Component.text("Spectator Mode", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
+                .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.spectator")) {
                         if (player.gameMode !== GameMode.SPECTATOR) {
                             player.gameMode = GameMode.SPECTATOR
@@ -117,11 +119,11 @@ class AdminCommand: CommandExecutor {
             /* Fly */
             val flyItem = ItemBuilder
                 .from(Material.ELYTRA)
-                .name(Component.text("${ChatColor.GRAY}${ChatColor.BOLD}Turn ON/OFF Flying"))
-                .asGuiItem { event: InventoryClickEvent ->
+                .name(Component.text("Turn ON/OFF Flying", NamedTextColor.GRAY, TextDecoration.BOLD))
+                .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.fly")) {
                         if (player.gameMode == GameMode.SURVIVAL) {
-                            if (!player.isFlying) {
+                            if (!player.isFlying && !player.allowFlight) {
                                 player.allowFlight = true
                                 player.isFlying = true
                                 player.sendTitle(
@@ -154,8 +156,8 @@ class AdminCommand: CommandExecutor {
             /* God Mode */
             val godItem = ItemBuilder
                 .from(Material.ENCHANTED_GOLDEN_APPLE)
-                .name(Component.text("${ChatColor.DARK_RED}${ChatColor.BOLD}Turn ON/OFF God Mode"))
-                .asGuiItem { event: InventoryClickEvent ->
+                .name(Component.text("Turn ON/OFF God Mode", NamedTextColor.DARK_RED, TextDecoration.BOLD))
+                .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.god")) {
                         if (player.gameMode == GameMode.SURVIVAL) {
                             if (player.isInvulnerable) {
@@ -190,8 +192,8 @@ class AdminCommand: CommandExecutor {
             /* Feed/Heal */
             val feedHealItem = ItemBuilder
                 .from(Material.APPLE)
-                .name(Component.text("${ChatColor.GREEN}${ChatColor.BOLD}Feed/Heal"))
-                .asGuiItem { event: InventoryClickEvent ->
+                .name(Component.text("Feed/Heal", NamedTextColor.GREEN, TextDecoration.BOLD))
+                .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.feedheal")) {
                         player.health = 20.0
                         player.foodLevel = 20
