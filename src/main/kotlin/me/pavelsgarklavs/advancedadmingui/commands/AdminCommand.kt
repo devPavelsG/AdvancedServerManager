@@ -8,6 +8,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.ChatColor
 import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -23,6 +24,14 @@ class AdminCommand: CommandExecutor {
         if (sender is Player) {
             val player: Player = sender
 
+            fun onButtonSound () {
+                return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 20F, 0F)
+            }
+
+            fun errorButtonSound () {
+                return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
+            }
+
             /* GUI */
             val gui: Gui = Gui.gui()
                 .rows(6)
@@ -32,15 +41,12 @@ class AdminCommand: CommandExecutor {
             gui.setDefaultClickAction { event -> event.isCancelled = true}
 
             /* GUI Borders */
-            gui.filler.fillBorder(ItemBuilder
-                .from(Material.BLACK_STAINED_GLASS_PANE)
-                .name(Component.text("X", NamedTextColor.RED, TextDecoration.BOLD))
-                .asGuiItem())
-
             val borderItem = ItemBuilder
                 .from(Material.BLACK_STAINED_GLASS_PANE)
                 .name(Component.text("X", NamedTextColor.RED, TextDecoration.BOLD))
                 .asGuiItem()
+
+            gui.filler.fillBorder(borderItem)
 
             /* Creative Mode */
             val creativeItem = ItemBuilder
@@ -50,24 +56,25 @@ class AdminCommand: CommandExecutor {
                     if (player.hasPermission("advancedadmingui.admin.creative")) {
                         if (player.gameMode !== GameMode.CREATIVE) {
                             player.gameMode = GameMode.CREATIVE
-                            gui.close(player)
                             player.sendTitle(
                                 "${ChatColor.GOLD}Creative Mode",
                                 "${ChatColor.GREEN}${ChatColor.BOLD}ON",
-                                10, 70, 20
+                                10, 60, 20
                             )
                         } else {
                             player.gameMode = GameMode.SURVIVAL
-                            gui.close(player)
                             player.sendTitle(
                                 "${ChatColor.GOLD}Creative Mode",
                                 "${ChatColor.RED}${ChatColor.BOLD}OFF",
-                                10, 70, 20
+                                10, 60, 20
                             )
                         }
+                        onButtonSound()
                     } else {
+                        errorButtonSound()
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
                     }
+                    gui.close(player)
             }
 
             /* Survival Mode */
@@ -76,16 +83,27 @@ class AdminCommand: CommandExecutor {
                 .name(Component.text("Survival Mode", NamedTextColor.AQUA, TextDecoration.BOLD))
                 .asGuiItem {
                     if (player.hasPermission("advancedadmingui.admin.survival")) {
-                        player.gameMode = GameMode.SURVIVAL
-                        gui.close(player)
-                        player.sendTitle(
-                            "${ChatColor.AQUA}Survival Mode",
-                            "${ChatColor.GREEN}${ChatColor.BOLD}ON",
-                            10, 70, 20
-                        )
+                        if (player.gameMode !== GameMode.SURVIVAL) {
+                            player.gameMode = GameMode.SURVIVAL
+                            player.sendTitle(
+                                "${ChatColor.AQUA}Survival Mode",
+                                "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                10, 60, 20
+                            )
+                            onButtonSound()
+                        } else {
+                            player.sendTitle(
+                                "${ChatColor.DARK_RED}Survival Mode is already",
+                                "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                10, 60, 20
+                            )
+                            errorButtonSound()
+                            }
                     } else {
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        errorButtonSound()
                     }
+                    gui.close(player)
                 }
 
             /* Spectator Mode */
@@ -96,24 +114,26 @@ class AdminCommand: CommandExecutor {
                     if (player.hasPermission("advancedadmingui.admin.spectator")) {
                         if (player.gameMode !== GameMode.SPECTATOR) {
                             player.gameMode = GameMode.SPECTATOR
-                            gui.close(player)
                             player.sendTitle(
                                 "${ChatColor.LIGHT_PURPLE}Spectator Mode",
                                 "${ChatColor.GREEN}${ChatColor.BOLD}ON",
-                                10, 70, 20
+                                10, 60, 20
                             )
                         } else {
                             player.gameMode = GameMode.SURVIVAL
-                            gui.close(player)
+                            onButtonSound()
                             player.sendTitle(
                                 "${ChatColor.LIGHT_PURPLE}Spectator Mode",
                                 "${ChatColor.RED}${ChatColor.BOLD}OFF",
-                                10, 70, 20
+                                10, 60, 20
                             )
                         }
+                        onButtonSound()
                     } else {
+                        errorButtonSound()
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
                     }
+                    gui.close(player)
                 }
 
             /* Fly */
@@ -129,7 +149,7 @@ class AdminCommand: CommandExecutor {
                                 player.sendTitle(
                                     "${ChatColor.GRAY}Flying turned",
                                     "${ChatColor.GREEN}${ChatColor.BOLD}ON",
-                                    10, 70, 20
+                                    10, 60, 20
                                 )
                             } else {
                                 player.allowFlight = false
@@ -137,20 +157,23 @@ class AdminCommand: CommandExecutor {
                                 player.sendTitle(
                                     "${ChatColor.GRAY}Flying turned",
                                     "${ChatColor.RED}${ChatColor.BOLD}OFF",
-                                    10, 70, 20
+                                    10, 60, 20
                                 )
                             }
+                            onButtonSound()
                         } else {
                             player.sendTitle(
                                 "${ChatColor.RED}Switch to Survival Mode",
                                 "${ChatColor.RED}${ChatColor.BOLD}to turn flying on",
-                                10, 70, 20
+                                10, 60, 20
                             )
+                            errorButtonSound()
                         }
-                        gui.close(player)
                     } else {
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        errorButtonSound()
                     }
+                    gui.close(player)
                 }
 
             /* God Mode */
@@ -165,28 +188,30 @@ class AdminCommand: CommandExecutor {
                                 player.sendTitle(
                                     "${ChatColor.DARK_RED}God Mode turned",
                                     "${ChatColor.RED}${ChatColor.BOLD}OFF",
-                                    10, 70, 20
+                                    10, 60, 20
                                 )
                             } else {
                                 player.isInvulnerable = true
                                 player.sendTitle(
                                     "${ChatColor.DARK_RED}God Mode turned",
                                     "${ChatColor.GREEN}${ChatColor.BOLD}ON",
-                                    10, 70, 20
+                                    10, 60, 20
                                 )
                             }
+                            onButtonSound()
                         } else {
                             player.sendTitle(
                                 "${ChatColor.RED}God Mode can't be turned ON",
                                 "${ChatColor.DARK_RED}${ChatColor.BOLD}Enter survival mode to turn on",
-                                10, 70, 20
+                                10, 60, 20
                             )
+                            errorButtonSound()
                         }
-
-                        gui.close(player)
                     } else {
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        errorButtonSound()
                     }
+                    gui.close(player)
                 }
 
             /* Feed/Heal */
@@ -197,15 +222,17 @@ class AdminCommand: CommandExecutor {
                     if (player.hasPermission("advancedadmingui.admin.feedheal")) {
                         player.health = 20.0
                         player.foodLevel = 20
-                        gui.close(player)
                         player.sendTitle(
                             "${ChatColor.GREEN}Server fed and healed you",
                             "",
-                            10, 70, 20
+                            10, 60, 20
                         )
+                        onButtonSound()
                     } else {
+                        errorButtonSound()
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
                     }
+                    gui.close(player)
                 }
 
             /* Items -> Commands */

@@ -14,6 +14,6 @@ class AdvancedAdminGUI : JavaPlugin() {
     }
 
     override fun onDisable() {
-        // Plugin shutdown logic
+        println("\u001b[31mAdvanced Admin GUI has stopped!\u001b[0m")
     }
 }
