@@ -1,4 +1,4 @@
-package me.pavelsgarklavs.advancedadmingui.commands
+package me.pavelsgarklavs.advancedadmingui
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 
-class AdminCommand: CommandExecutor {
+class GUI: CommandExecutor {
 
 
 

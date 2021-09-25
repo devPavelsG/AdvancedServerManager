@@ -1,0 +1,11 @@
+# Advanced Admin GUI Config #
+# Author: Dev_Fox #
+
+# Messages #
+
+Prefix: "&7[&4AAG&7]"
+
+Creative: "&6Gamemode changed to Creative mode!"
+Survival: "&6Gamemode changed to Survival mode!"
+Adventure: "&6Gamemode changed to Adventure mode!"
+Spectator: "&6Gamemode changed to Spectator mode!"

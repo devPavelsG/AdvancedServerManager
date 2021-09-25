@@ -9,3 +9,6 @@ commands:
   admin:
     description: Open a Admin GUI
     usage: /<command>
+  gm:
+    description: Change gamemode to Creative
+    usage: /<command>
