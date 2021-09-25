@@ -12,9 +12,12 @@ import org.bukkit.entity.Player
 
 class GamemodeCommand(private val plugin: AdvancedAdminGUI): CommandExecutor, TabCompleter{
 
-    private fun getMessage(path: String): String? {
-        return plugin.config.getString(path)
+    private fun getMessage(path: String): String {
+        val prefix = plugin.config.getString("Prefix")
             ?.let { ChatColor.translateAlternateColorCodes('&', it) }
+        val message = plugin.config.getString(path)
+            ?.let { ChatColor.translateAlternateColorCodes('&', it) }
+        return prefix + message
     }
     
     override fun onCommand(
@@ -29,19 +32,19 @@ class GamemodeCommand(private val plugin: AdvancedAdminGUI): CommandExecutor, Ta
                 when (args.size == 1) {
                     args[0] == "0" -> {
                         player.gameMode = GameMode.SURVIVAL
-                        player.sendMessage(getMessage("Prefix") + getMessage("Survival"))
+                        player.sendMessage(getMessage("Survival"))
                     }
                     args[0] == "1" -> {
                         player.gameMode = GameMode.CREATIVE
-                        player.sendMessage(getMessage("Prefix") + getMessage("Creative"))
+                        player.sendMessage(getMessage("Creative"))
                     }
                     args[0] == "2" -> {
                         player.gameMode = GameMode.ADVENTURE
-                        player.sendMessage(getMessage("Prefix") + getMessage("Adventure"))
+                        player.sendMessage(getMessage("Adventure"))
                     }
                     args[0] == "3" -> {
                         player.gameMode = GameMode.SPECTATOR
-                        player.sendMessage(getMessage("Prefix") + getMessage("Spectator"))
+                        player.sendMessage(getMessage("Spectator"))
                     }
                     else -> player.sendMessage("${ChatColor.DARK_RED}Something went wrong!")
                 }
