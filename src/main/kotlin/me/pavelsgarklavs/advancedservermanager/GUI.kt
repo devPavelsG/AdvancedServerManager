@@ -1,4 +1,4 @@
-package me.pavelsgarklavs.advancedadmingui
+package me.pavelsgarklavs.advancedservermanager
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
@@ -13,10 +13,8 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.bukkit.event.inventory.InventoryClickEvent
 
-class GUI: CommandExecutor {
-
+class GUI : CommandExecutor {
 
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
@@ -24,11 +22,11 @@ class GUI: CommandExecutor {
         if (sender is Player) {
             val player: Player = sender
 
-            fun onButtonSound () {
+            fun onButtonSound() {
                 return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 20F, 0F)
             }
 
-            fun errorButtonSound () {
+            fun errorButtonSound() {
                 return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
             }
 
@@ -38,7 +36,7 @@ class GUI: CommandExecutor {
                 .title(Component.text("Admin GUI", NamedTextColor.RED, TextDecoration.BOLD))
                 .create()
 
-            gui.setDefaultClickAction { event -> event.isCancelled = true}
+            gui.setDefaultClickAction { event -> event.isCancelled = true }
 
             /* GUI Borders */
             val borderItem = ItemBuilder
@@ -53,7 +51,7 @@ class GUI: CommandExecutor {
                 .from(Material.GOLDEN_APPLE)
                 .name(Component.text("Creative Mode", NamedTextColor.GOLD, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedadmingui.admin.creative")) {
+                    if (player.hasPermission("advancedservermanager.admin.creative")) {
                         if (player.gameMode !== GameMode.CREATIVE) {
                             player.gameMode = GameMode.CREATIVE
                             player.sendTitle(
@@ -75,14 +73,14 @@ class GUI: CommandExecutor {
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
                     }
                     gui.close(player)
-            }
+                }
 
             /* Survival Mode */
             val survivalItem = ItemBuilder
                 .from(Material.BREAD)
                 .name(Component.text("Survival Mode", NamedTextColor.AQUA, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedadmingui.admin.survival")) {
+                    if (player.hasPermission("advancedservermanager.admin.survival")) {
                         if (player.gameMode !== GameMode.SURVIVAL) {
                             player.gameMode = GameMode.SURVIVAL
                             player.sendTitle(
@@ -98,7 +96,7 @@ class GUI: CommandExecutor {
                                 10, 60, 20
                             )
                             errorButtonSound()
-                            }
+                        }
                     } else {
                         player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
                         errorButtonSound()
@@ -111,7 +109,7 @@ class GUI: CommandExecutor {
                 .from(Material.ENDER_EYE)
                 .name(Component.text("Spectator Mode", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedadmingui.admin.spectator")) {
+                    if (player.hasPermission("advancedservermanager.admin.spectator")) {
                         if (player.gameMode !== GameMode.SPECTATOR) {
                             player.gameMode = GameMode.SPECTATOR
                             player.sendTitle(
@@ -141,7 +139,7 @@ class GUI: CommandExecutor {
                 .from(Material.ELYTRA)
                 .name(Component.text("Turn ON/OFF Flying", NamedTextColor.GRAY, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedadmingui.admin.fly")) {
+                    if (player.hasPermission("advancedservermanager.admin.fly")) {
                         if (player.gameMode == GameMode.SURVIVAL) {
                             if (!player.isFlying && !player.allowFlight) {
                                 player.allowFlight = true
@@ -163,8 +161,8 @@ class GUI: CommandExecutor {
                             onButtonSound()
                         } else {
                             player.sendTitle(
-                                "${ChatColor.RED}Switch to Survival Mode",
-                                "${ChatColor.RED}${ChatColor.BOLD}to turn flying on",
+                                "${ChatColor.RED}Flying can't be turned ON",
+                                "${ChatColor.DARK_RED}${ChatColor.BOLD}Enter survival mode to turn on",
                                 10, 60, 20
                             )
                             errorButtonSound()
@@ -181,7 +179,7 @@ class GUI: CommandExecutor {
                 .from(Material.ENCHANTED_GOLDEN_APPLE)
                 .name(Component.text("Turn ON/OFF God Mode", NamedTextColor.DARK_RED, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedadmingui.admin.god")) {
+                    if (player.hasPermission("advancedservermanager.admin.god")) {
                         if (player.gameMode == GameMode.SURVIVAL) {
                             if (player.isInvulnerable) {
                                 player.isInvulnerable = false
@@ -219,7 +217,7 @@ class GUI: CommandExecutor {
                 .from(Material.APPLE)
                 .name(Component.text("Feed/Heal", NamedTextColor.GREEN, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedadmingui.admin.feedheal")) {
+                    if (player.hasPermission("advancedservermanager.admin.feedheal")) {
                         player.health = 20.0
                         player.foodLevel = 20
                         player.sendTitle(
@@ -254,7 +252,7 @@ class GUI: CommandExecutor {
             gui.setItem(24, borderItem)
             gui.setItem(25, borderItem)
 
-            if (player.hasPermission("advancedadmingui.admin")) {
+            if (player.hasPermission("advancedservermanager.admin")) {
                 gui.open(player)
             } else {
                 player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")

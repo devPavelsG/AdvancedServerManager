@@ -31,7 +31,7 @@ dependencies {
 }
 shadowJar {
     relocate("kotlin", "me.pavelsgarklavs.kotlin")
-    relocate("dev.triumphteam.gui", "me.pavelsgarklavs.advancedadmingui.gui")
+    relocate("dev.triumphteam.gui", "me.pavelsgarklavs.advancedservermanager.gui")
     relocate("net.kyori:adventure-api:4.9.1", "me.pavelsgarklavs.adventure-api" )
     relocate("net.kyori:adventure-text-serializer-legacy:4.9.1", "me.pavelsgarklavs.adventure-text-serializer-legacy" )
 }

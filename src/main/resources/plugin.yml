@@ -1,6 +1,6 @@
-name: AdvancedAdminGUI
+name: AdvancedServerManager
 version: '${version}'
-main: me.pavelsgarklavs.advancedadmingui.AdvancedAdminGUI
+main: me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 api-version: 1.17
 authors: [ Dev_Fox ]
 description: Use Advanced Admin GUI to eliminate commands and control your server with ease
@@ -12,3 +12,5 @@ commands:
   gm:
     description: Change gamemode to Creative
     usage: /<command>
+    aliases:
+      - gamemode

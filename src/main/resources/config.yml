@@ -3,7 +3,10 @@
 
 # Messages #
 
-Prefix: "&7[&4AAG&7]"
+Prefix: "&7[&4ASM&7]"
+
+Permissions: "&4You don't have permissions to use this command!"
+OfflineOrDoesNotExist: "&4Player is offline or does not exist!"
 
 Creative: "&6Gamemode changed to Creative mode!"
 Survival: "&6Gamemode changed to Survival mode!"
