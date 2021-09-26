@@ -8,6 +8,10 @@ Prefix: "&7[&4ASM&7]"
 Permissions: "&4You don't have permissions to use this command!"
 OfflineOrDoesNotExist: "&4Player is offline or does not exist!"
 
+FlyOn: "&6Fly Turned &2ON&6!"
+FlyOff: "&6Fly Turned &4OFF&6!"
+FlyNotSurvival: "&4Switch To Survival to turn on fly!"
+
 Creative: "&6Gamemode changed to Creative mode!"
 Survival: "&6Gamemode changed to Survival mode!"
 Adventure: "&6Gamemode changed to Adventure mode!"

@@ -11,6 +11,9 @@ commands:
     usage: /<command>
   gm:
     description: Change gamemode to Creative
-    usage: /<command>
+    usage: /<command> [gamemode/0-3]
     aliases:
       - gamemode
+  fly:
+    description: Turn on/off Fly
+    usage: /<command>
