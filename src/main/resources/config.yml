@@ -8,11 +8,51 @@ Prefix: "&7[&4ASM&7]"
 Permissions: "&4You don't have permissions to use this command!"
 OfflineOrDoesNotExist: "&4Player is offline or does not exist!"
 
-FlyOn: "&6Fly Turned &2ON&6!"
-FlyOff: "&6Fly Turned &4OFF&6!"
+FlyOn: "&6Fly Turned &2ON"
+FlyOff: "&6Fly Turned &4OFF"
 FlyNotSurvival: "&4Switch To Survival to turn on fly!"
+
+GodModeOn: "&6God Mode Turned &2ON"
+GodModeOnPlayer: "&6God Mode Turned &2ON &6for the player!"
+GodModeOff: "&6God Mode Turned &4OFF"
+GodModeOffPlayer: "&6God Mode Turned &4OFF &6for the player!"
+
+Feed: "&6Server fed you/player!"
+Heal: "&6Server healed you/player!"
 
 Creative: "&6Gamemode changed to Creative mode!"
 Survival: "&6Gamemode changed to Survival mode!"
 Adventure: "&6Gamemode changed to Adventure mode!"
 Spectator: "&6Gamemode changed to Spectator mode!"
+
+# GUI TITLE MESSAGES #
+
+CreativeTitle: "&6Creative Mode"
+CreativeSubtitleOn: "&2&lON"
+CreativeSubtitleOff: "&4&lOFF"
+
+SurvivalTitle: "&bSurvival Mode"
+SurvivalAlreadyOnTitle: "&4Survival Mode is already"
+SurvivalSubtitleOn: "&2&lON"
+SurvivalSubtitleOff: "&4&lOFF"
+
+SpectatorTitle: "&dSpectator Mode"
+SpectatorSubtitleOn: "&2&lON"
+SpectatorSubtitleOff: "&4&lOFF"
+
+FlyTitle: "&7Flying turned"
+FlySubtitleOn: "&2&lON"
+FlySubtitleOff: "&4&lOFF"
+FlyMustBeSurvivalTitle: "&cFlying can't be turned ON"
+FlyMustBeSurvivalSubtitle: "&4Enter Survival mode to turn on"
+
+GodTitle: "&4God Mode turned"
+GodSubtitleOn: "&2&lON"
+GodSubtitleOff: "&4&lOFF"
+GodMustBeSurvivalTitle: "&cGod Mode can't be turned ON"
+GodMustBeSurvivalSubtitle: "&4Enter Survival mode to turn on"
+
+FeedHealTitle: "&2Server fed and healed you"
+FeedHealSubtitle: ""
+
+

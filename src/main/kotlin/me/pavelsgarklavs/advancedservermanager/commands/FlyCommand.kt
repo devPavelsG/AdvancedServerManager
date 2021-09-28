@@ -13,7 +13,7 @@ class FlyCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
         if (sender is Player) {
             val player: Player = sender
 
-            if (player.hasPermission("advancedservermanager.admin.fly")) {
+            if (player.hasPermission("advancedservermanager.fly")) {
                 if (args.isEmpty()) {
                     if (player.gameMode == GameMode.SURVIVAL) {
                         if (!player.isFlying && !player.allowFlight) {
@@ -28,7 +28,7 @@ class FlyCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
                     } else {
                         player.sendMessage(plugin.getConfigMessage("FlyNotSurvival"))
                     }
-                } else if ((args.size == 1) && player.hasPermission("advancedservermanager.admin.fly.players")) {
+                } else if ((args.size == 1) && player.hasPermission("advancedservermanager.fly.players")) {
                     if (args[0] == plugin.getSingleOnlinePlayer()?.displayName) {
                         if (plugin.getSingleOnlinePlayer()!!.gameMode == GameMode.SURVIVAL) {
                             if (!plugin.getSingleOnlinePlayer()!!.isFlying && !plugin.getSingleOnlinePlayer()!!.allowFlight) {
@@ -66,7 +66,7 @@ class FlyCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
                         } else {
                             plugin.getSingleOnlinePlayer()!!.allowFlight = false
                             plugin.getSingleOnlinePlayer()!!.isFlying = false
-                            println("\u001B[32mFly turned OFF for \u001B[32m${args[0]}\u001B[0m")
+                            println("\u001B[32mFly turned OFF for ${args[0]}\u001B[0m")
                         }
                     } else {
                         println("\u001B[32mSwitch To Survival to turn \u001B[32mON \u001B[32mor \u001B[31mOFF \u001B[32mfly\u001B[0m")

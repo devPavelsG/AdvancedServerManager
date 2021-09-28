@@ -17,3 +17,14 @@ commands:
   fly:
     description: Turn on/off Fly
     usage: /<command>
+  god:
+    description: Turn on/off God Mode
+    usage: /<command>
+    aliases:
+      - godmode
+  feed:
+    description: Feed you/player
+    usage: /<command>
+  heal:
+    description: Heal you/player
+    usage: /<command>

@@ -1,7 +1,6 @@
 package me.pavelsgarklavs.advancedservermanager
 
-import me.pavelsgarklavs.advancedservermanager.commands.FlyCommand
-import me.pavelsgarklavs.advancedservermanager.commands.GamemodeCommand
+import me.pavelsgarklavs.advancedservermanager.commands.*
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
@@ -9,9 +8,12 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
 class AdvancedServerManager : JavaPlugin() {
-    private val gui: GUI = GUI()
+    private val gui: GUI = GUI(this)
     private val gamemodeCommand: GamemodeCommand = GamemodeCommand(this)
     private val flyCommand: FlyCommand = FlyCommand(this)
+    private val godCommand: GodCommand = GodCommand(this)
+    private val feedCommand: FeedCommand = FeedCommand(this)
+    private val healCommand: HealCommand = HealCommand(this)
 
     fun checkOfflinePlayer(name: String): OfflinePlayer? {
         for (player in Bukkit.getOfflinePlayers()) {
@@ -41,6 +43,9 @@ class AdvancedServerManager : JavaPlugin() {
         getCommand("gm")?.setExecutor(gamemodeCommand)
         getCommand("gm")?.tabCompleter = gamemodeCommand
         getCommand("fly")?.setExecutor(flyCommand)
+        getCommand("god")?.setExecutor(godCommand)
+        getCommand("feed")?.setExecutor(feedCommand)
+        getCommand("heal")?.setExecutor(healCommand)
 
         config.options().copyDefaults()
         saveDefaultConfig()

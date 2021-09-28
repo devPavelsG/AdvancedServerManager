@@ -14,7 +14,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class GUI : CommandExecutor {
+class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
 
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
@@ -28,6 +28,11 @@ class GUI : CommandExecutor {
 
             fun errorButtonSound() {
                 return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
+            }
+
+            fun getGUIConfigMessage(path: String): String? {
+                return plugin.config.getString(path)
+                    ?.let { ChatColor.translateAlternateColorCodes('&', it) }
             }
 
             /* GUI */
@@ -51,26 +56,26 @@ class GUI : CommandExecutor {
                 .from(Material.GOLDEN_APPLE)
                 .name(Component.text("Creative Mode", NamedTextColor.GOLD, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.admin.creative")) {
+                    if (player.hasPermission("advancedservermanager.creative")) {
                         if (player.gameMode !== GameMode.CREATIVE) {
                             player.gameMode = GameMode.CREATIVE
                             player.sendTitle(
-                                "${ChatColor.GOLD}Creative Mode",
-                                "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                getGUIConfigMessage("CreativeTitle"),
+                                getGUIConfigMessage("CreativeSubtitleOn"),
                                 10, 60, 20
                             )
                         } else {
                             player.gameMode = GameMode.SURVIVAL
                             player.sendTitle(
-                                "${ChatColor.GOLD}Creative Mode",
-                                "${ChatColor.RED}${ChatColor.BOLD}OFF",
+                                getGUIConfigMessage("CreativeTitle"),
+                                getGUIConfigMessage("CreativeSubtitleOff"),
                                 10, 60, 20
                             )
                         }
                         onButtonSound()
                     } else {
                         errorButtonSound()
-                        player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                     gui.close(player)
                 }
@@ -80,25 +85,25 @@ class GUI : CommandExecutor {
                 .from(Material.BREAD)
                 .name(Component.text("Survival Mode", NamedTextColor.AQUA, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.admin.survival")) {
+                    if (player.hasPermission("advancedservermanager.survival")) {
                         if (player.gameMode !== GameMode.SURVIVAL) {
                             player.gameMode = GameMode.SURVIVAL
                             player.sendTitle(
-                                "${ChatColor.AQUA}Survival Mode",
-                                "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                getGUIConfigMessage("SurvivalTitle"),
+                                getGUIConfigMessage("SurvivalSubtitleOn"),
                                 10, 60, 20
                             )
                             onButtonSound()
                         } else {
                             player.sendTitle(
-                                "${ChatColor.DARK_RED}Survival Mode is already",
-                                "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                getGUIConfigMessage("SurvivalAlreadyOnTitle"),
+                                getGUIConfigMessage("SurvivalSubtitleOn"),
                                 10, 60, 20
                             )
                             errorButtonSound()
                         }
                     } else {
-                        player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
                         errorButtonSound()
                     }
                     gui.close(player)
@@ -109,27 +114,27 @@ class GUI : CommandExecutor {
                 .from(Material.ENDER_EYE)
                 .name(Component.text("Spectator Mode", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.admin.spectator")) {
+                    if (player.hasPermission("advancedservermanager.spectator")) {
                         if (player.gameMode !== GameMode.SPECTATOR) {
                             player.gameMode = GameMode.SPECTATOR
                             player.sendTitle(
-                                "${ChatColor.LIGHT_PURPLE}Spectator Mode",
-                                "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                getGUIConfigMessage("SpectatorTitle"),
+                                getGUIConfigMessage("SpectatorSubtitleOn"),
                                 10, 60, 20
                             )
                         } else {
                             player.gameMode = GameMode.SURVIVAL
                             onButtonSound()
                             player.sendTitle(
-                                "${ChatColor.LIGHT_PURPLE}Spectator Mode",
-                                "${ChatColor.RED}${ChatColor.BOLD}OFF",
+                                getGUIConfigMessage("SpectatorTitle"),
+                                getGUIConfigMessage("SpectatorSubtitleOff"),
                                 10, 60, 20
                             )
                         }
                         onButtonSound()
                     } else {
                         errorButtonSound()
-                        player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                     gui.close(player)
                 }
@@ -139,36 +144,36 @@ class GUI : CommandExecutor {
                 .from(Material.ELYTRA)
                 .name(Component.text("Turn ON/OFF Flying", NamedTextColor.GRAY, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.admin.fly")) {
+                    if (player.hasPermission("advancedservermanager.fly")) {
                         if (player.gameMode == GameMode.SURVIVAL) {
                             if (!player.isFlying && !player.allowFlight) {
                                 player.allowFlight = true
                                 player.isFlying = true
                                 player.sendTitle(
-                                    "${ChatColor.GRAY}Flying turned",
-                                    "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                    getGUIConfigMessage("FlyTitle"),
+                                    getGUIConfigMessage("FlySubtitleOn"),
                                     10, 60, 20
                                 )
                             } else {
                                 player.allowFlight = false
                                 player.isFlying = false
                                 player.sendTitle(
-                                    "${ChatColor.GRAY}Flying turned",
-                                    "${ChatColor.RED}${ChatColor.BOLD}OFF",
+                                    getGUIConfigMessage("FlyTitle"),
+                                    getGUIConfigMessage("FlySubtitleOff"),
                                     10, 60, 20
                                 )
                             }
                             onButtonSound()
                         } else {
                             player.sendTitle(
-                                "${ChatColor.RED}Flying can't be turned ON",
-                                "${ChatColor.DARK_RED}${ChatColor.BOLD}Enter survival mode to turn on",
+                                getGUIConfigMessage("FlyMustBeSurvivalTitle"),
+                                getGUIConfigMessage("FlyMustBeSurvivalSubtitle"),
                                 10, 60, 20
                             )
                             errorButtonSound()
                         }
                     } else {
-                        player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
                         errorButtonSound()
                     }
                     gui.close(player)
@@ -179,34 +184,34 @@ class GUI : CommandExecutor {
                 .from(Material.ENCHANTED_GOLDEN_APPLE)
                 .name(Component.text("Turn ON/OFF God Mode", NamedTextColor.DARK_RED, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.admin.god")) {
+                    if (player.hasPermission("advancedservermanager.god")) {
                         if (player.gameMode == GameMode.SURVIVAL) {
                             if (player.isInvulnerable) {
                                 player.isInvulnerable = false
                                 player.sendTitle(
-                                    "${ChatColor.DARK_RED}God Mode turned",
-                                    "${ChatColor.RED}${ChatColor.BOLD}OFF",
+                                    getGUIConfigMessage("GodTitle"),
+                                    getGUIConfigMessage("GodSubtitleOff"),
                                     10, 60, 20
                                 )
                             } else {
                                 player.isInvulnerable = true
                                 player.sendTitle(
-                                    "${ChatColor.DARK_RED}God Mode turned",
-                                    "${ChatColor.GREEN}${ChatColor.BOLD}ON",
+                                    getGUIConfigMessage("GodTitle"),
+                                    getGUIConfigMessage("GodSubtitleOn"),
                                     10, 60, 20
                                 )
                             }
                             onButtonSound()
                         } else {
                             player.sendTitle(
-                                "${ChatColor.RED}God Mode can't be turned ON",
-                                "${ChatColor.DARK_RED}${ChatColor.BOLD}Enter survival mode to turn on",
+                                getGUIConfigMessage("GodMustBeSurvivalTitle"),
+                                getGUIConfigMessage("GodMustBeSurvivalSubtitle"),
                                 10, 60, 20
                             )
                             errorButtonSound()
                         }
                     } else {
-                        player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
                         errorButtonSound()
                     }
                     gui.close(player)
@@ -217,18 +222,18 @@ class GUI : CommandExecutor {
                 .from(Material.APPLE)
                 .name(Component.text("Feed/Heal", NamedTextColor.GREEN, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.admin.feedheal")) {
+                    if (player.hasPermission("advancedservermanager.feedheal")) {
                         player.health = 20.0
                         player.foodLevel = 20
                         player.sendTitle(
-                            "${ChatColor.GREEN}Server fed and healed you",
-                            "",
+                            getGUIConfigMessage("FeedHealTitle"),
+                            getGUIConfigMessage("FeedHealSubtitle"),
                             10, 60, 20
                         )
                         onButtonSound()
                     } else {
                         errorButtonSound()
-                        player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                     gui.close(player)
                 }
@@ -255,7 +260,7 @@ class GUI : CommandExecutor {
             if (player.hasPermission("advancedservermanager.admin")) {
                 gui.open(player)
             } else {
-                player.sendMessage("${ChatColor.DARK_RED}You do not have permissions to run this command!")
+                player.sendMessage(plugin.getConfigMessage("Permissions"))
             }
         }
         return true

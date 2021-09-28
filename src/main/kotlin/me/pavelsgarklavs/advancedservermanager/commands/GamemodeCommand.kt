@@ -2,9 +2,7 @@ package me.pavelsgarklavs.advancedservermanager.commands
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.GameMode
-import org.bukkit.OfflinePlayer
 import org.bukkit.command.*
 import org.bukkit.entity.Player
 
@@ -22,28 +20,28 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
 
             if (args.size == 1) {
                 if ((args[0] == "0") || (args[0].equals("survival", ignoreCase = true))) {
-                    if (player.hasPermission("advancedservermanager.admin.survival")) {
+                    if (player.hasPermission("advancedservermanager.survival")) {
                         player.gameMode = GameMode.SURVIVAL
                         player.sendMessage(plugin.getConfigMessage("Survival"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                 } else if ((args[0] == "1") || (args[0].equals("creative", ignoreCase = true))) {
-                    if (player.hasPermission("advancedservermanager.admin.creative")) {
+                    if (player.hasPermission("advancedservermanager.creative")) {
                         player.gameMode = GameMode.CREATIVE
                         player.sendMessage(plugin.getConfigMessage("Creative"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                 } else if ((args[0] == "2") || (args[0].equals("adventure", ignoreCase = true))) {
-                    if (player.hasPermission("advancedservermanager.admin.adventure")) {
+                    if (player.hasPermission("advancedservermanager.adventure")) {
                         player.gameMode = GameMode.ADVENTURE
                         player.sendMessage(plugin.getConfigMessage("Adventure"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                 } else if ((args[0] == "3") || (args[0].equals("spectator", ignoreCase = true))) {
-                    if (player.hasPermission("advancedservermanager.admin.spectator")) {
+                    if (player.hasPermission("advancedservermanager.spectator")) {
                         player.gameMode = GameMode.SPECTATOR
                         player.sendMessage(plugin.getConfigMessage("Spectator"))
                     } else {
@@ -54,7 +52,7 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
                 if (((args[0] == "0") || (args[0].equals("survival", ignoreCase = true))) &&
                     (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
                 ) {
-                    if (player.hasPermission("advancedservermanager.admin.survival.players")) {
+                    if (player.hasPermission("advancedservermanager.survival.players")) {
                         plugin.getSingleOnlinePlayer()?.gameMode = GameMode.SURVIVAL
                         player.sendMessage(plugin.getConfigMessage("Survival"))
                     } else {
@@ -63,7 +61,7 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
                 } else if (((args[0] == "1") || (args[0].equals("creative", ignoreCase = true))) &&
                     (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
                 ) {
-                    if (player.hasPermission("advancedservermanager.admin.creative.players")) {
+                    if (player.hasPermission("advancedservermanager.creative.players")) {
                         plugin.getSingleOnlinePlayer()?.gameMode = GameMode.CREATIVE
                         player.sendMessage(plugin.getConfigMessage("Creative"))
                     } else {
@@ -72,7 +70,7 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
                 } else if (((args[0] == "2") || (args[0].equals("adventure", ignoreCase = true))) &&
                     (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
                 ) {
-                    if (player.hasPermission("advancedservermanager.admin.adventure.players")) {
+                    if (player.hasPermission("advancedservermanager.adventure.players")) {
                         plugin.getSingleOnlinePlayer()?.gameMode = GameMode.ADVENTURE
                         player.sendMessage(plugin.getConfigMessage("Adventure"))
                     } else {
@@ -81,7 +79,7 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
                 } else if (((args[0] == "3") || (args[0].equals("spectator", ignoreCase = true))) &&
                     (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
                 ) {
-                    if (player.hasPermission("advancedservermanager.admin.spectator.players")) {
+                    if (player.hasPermission("advancedservermanager.spectator.players")) {
                         plugin.getSingleOnlinePlayer()?.gameMode = GameMode.SPECTATOR
                         player.sendMessage(plugin.getConfigMessage("Spectator"))
                     } else {
@@ -93,8 +91,10 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
             }
         }
         if (sender is ConsoleCommandSender) {
-            if (args.size == 1) {
-                println("\u001b[31mPlease provide a player to change gamemode: \u001b[32m/gm [gamemode/0-3]\u001b[0m")
+            if (args.isEmpty()) {
+                println("\u001b[31mPlease provide an argument: \u001B[32m/gm [gamemode/0-3] [player]\u001B[0m")
+            } else if (args.size == 1) {
+                println("\u001b[31mPlease provide a player to change gamemode: \u001b[32m/gm [gamemode/0-3] [player]\u001b[0m")
             } else if (args.size == 2) {
                 if (((args[0] == "0") || (args[0].equals("survival", ignoreCase = true))) &&
                     (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
