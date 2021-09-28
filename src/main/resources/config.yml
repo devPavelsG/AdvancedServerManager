@@ -6,7 +6,9 @@
 Prefix: "&7[&4ASM&7]"
 
 Permissions: "&4You don't have permissions to use this command!"
+MustBePlayer: "&4You must be a player to use this command!"
 OfflineOrDoesNotExist: "&4Player is offline or does not exist!"
+UnknownGamemode: "&4Unknown gamemode!"
 
 FlyOn: "&6Fly Turned &2ON"
 FlyOff: "&6Fly Turned &4OFF"

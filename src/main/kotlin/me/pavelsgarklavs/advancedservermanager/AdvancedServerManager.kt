@@ -4,8 +4,13 @@ import me.pavelsgarklavs.advancedservermanager.commands.*
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.*
+import java.util.function.Consumer
+import java.util.function.Function
+import java.util.function.Supplier
 
 class AdvancedServerManager : JavaPlugin() {
     private val gui: GUI = GUI(this)
@@ -15,24 +20,35 @@ class AdvancedServerManager : JavaPlugin() {
     private val feedCommand: FeedCommand = FeedCommand(this)
     private val healCommand: HealCommand = HealCommand(this)
 
-    fun checkOfflinePlayer(name: String): OfflinePlayer? {
+    fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
         for (player in Bukkit.getOfflinePlayers()) {
-            if (player.name.equals(name, ignoreCase = true)) return player
+            if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
         }
-        return null
+        return Optional.empty()
     }
-    fun getSingleOnlinePlayer(name: String): Player? {
-        for (onlinePlayer in Bukkit.getOnlinePlayers()) {
-            if (onlinePlayer.name.equals(name, ignoreCase = true)) return onlinePlayer
+    fun getOnlinePlayer(name: String): Optional<Player> {
+        for (player in Bukkit.getOnlinePlayers()) {
+            if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
         }
-        return null
+        return Optional.empty()
     }
     fun getConfigMessage(path: String): String {
         val prefix = config.getString("Prefix")
             ?.let { ChatColor.translateAlternateColorCodes('&', it) }
         val message = config.getString(path)
             ?.let { ChatColor.translateAlternateColorCodes('&', it) }
-        return prefix + message
+        return if(prefix?.isEmpty() == true) message.toString() else "$prefix $message"
+    }
+    fun ifPermissible(sender: CommandSender, permission: String, action: Runnable, mustBePlayer: Boolean = false) {
+        if(!sender.hasPermission(permission)) {
+            sender.sendMessage(getConfigMessage("Permissions"))
+        } else {
+            if(!mustBePlayer || sender is Player) {
+                action.run()
+            } else {
+                sender.sendMessage(getConfigMessage("MustBePlayer"))
+            }
+        }
     }
 
     override fun onEnable() {

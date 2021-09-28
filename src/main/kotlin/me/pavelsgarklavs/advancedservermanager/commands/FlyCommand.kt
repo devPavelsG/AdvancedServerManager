@@ -10,73 +10,48 @@ class FlyCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
 
-        if (sender is Player) {
-            val player: Player = sender
-
-            if (player.hasPermission("advancedservermanager.fly")) {
-                if (args.isEmpty()) {
-                    if (player.gameMode == GameMode.SURVIVAL) {
-                        if (!player.isFlying && !player.allowFlight) {
-                            player.allowFlight = true
-                            player.isFlying = true
-                            player.sendMessage(plugin.getConfigMessage("FlyOn"))
-                        } else {
-                            player.allowFlight = false
-                            player.isFlying = false
-                            player.sendMessage(plugin.getConfigMessage("FlyOff"))
-                        }
+        if (args.isEmpty()) {
+            plugin.ifPermissible(sender, "advancedservermanager.fly", {
+                val player: Player = sender as Player
+                if (player.gameMode == GameMode.SURVIVAL) {
+                    if (!player.isFlying && !player.allowFlight) {
+                        player.allowFlight = true
+                        player.isFlying = true
+                        player.sendMessage(plugin.getConfigMessage("FlyOn"))
                     } else {
-                        player.sendMessage(plugin.getConfigMessage("FlyNotSurvival"))
-                    }
-                } else if ((args.size == 1) && player.hasPermission("advancedservermanager.fly.players")) {
-                    if (args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) {
-                        if (plugin.getSingleOnlinePlayer(args[0])!!.gameMode == GameMode.SURVIVAL) {
-                            if (!plugin.getSingleOnlinePlayer(args[0])!!.isFlying && !plugin.getSingleOnlinePlayer(args[0])!!.allowFlight) {
-                                plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = true
-                                plugin.getSingleOnlinePlayer(args[0])!!.isFlying = true
-                                player.sendMessage(plugin.getConfigMessage("FlyOn"))
-                            } else {
-                                plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = false
-                                plugin.getSingleOnlinePlayer(args[0])!!.isFlying = false
-                                player.sendMessage(plugin.getConfigMessage("FlyOff"))
-                            }
-                        } else {
-                            player.sendMessage(plugin.getConfigMessage("FlyNotSurvival"))
-                        }
-                    } else if (plugin.checkOfflinePlayer(args[0]) == null) {
-                        player.sendMessage(plugin.getConfigMessage("OfflineOrDoesNotExist"))
+                        player.allowFlight = false
+                        player.isFlying = false
+                        player.sendMessage(plugin.getConfigMessage("FlyOff"))
                     }
                 } else {
-                    player.sendMessage(plugin.getConfigMessage("Permissions"))
+                    player.sendMessage(plugin.getConfigMessage("FlyNotSurvival"))
                 }
-            } else {
-                player.sendMessage(plugin.getConfigMessage("Permissions"))
-            }
-        }
-        if (sender is ConsoleCommandSender) {
-            if (args.isEmpty()) {
-                println("\u001b[31mPlease provide a player to turn ON or OFF\u001B[32m: /fly [player]\u001b[0m")
-            } else if (args.size == 1) {
-                if (args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) {
-                    if (plugin.getSingleOnlinePlayer(args[0])!!.gameMode == GameMode.SURVIVAL) {
-                        if (!plugin.getSingleOnlinePlayer(args[0])!!.isFlying && !plugin.getSingleOnlinePlayer(args[0])!!.allowFlight) {
-                            plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = true
-                            plugin.getSingleOnlinePlayer(args[0])!!.isFlying = true
-                            println("\u001B[32mFly turned ON for ${args[0]}\u001B[0m")
+            }, true)
+            return true
+        } else if(args.size == 1) {
+            plugin.ifPermissible(sender, "advancedservermanager.fly.players", {
+                plugin.getOnlinePlayer(args[0]).ifPresentOrElse({
+                    if (it.gameMode == GameMode.SURVIVAL) {
+                        if (!it.isFlying && !it.allowFlight) {
+                            it.allowFlight = true
+                            it.isFlying = true
+                            sender.sendMessage(plugin.getConfigMessage("FlyOn"))
                         } else {
-                            plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = false
-                            plugin.getSingleOnlinePlayer(args[0])!!.isFlying = false
-                            println("\u001B[32mFly turned OFF for ${args[0]}\u001B[0m")
+                            it.allowFlight = false
+                            it.isFlying = false
+                            sender.sendMessage(plugin.getConfigMessage("FlyOff"))
                         }
                     } else {
-                        println("\u001B[31mSwitch player to Survival to turn fly ON or OFF\u001B[0m")
+                        sender.sendMessage(plugin.getConfigMessage("FlyNotSurvival"))
                     }
-                } else if (plugin.checkOfflinePlayer(args[0]) == null) {
-                    println("\u001b[31mPlayer is offline or does not exist!\u001b[0m")
-                }
-            }
+                }, {
+                    sender.sendMessage(plugin.getConfigMessage("OfflineOrDoesNotExist"))
+                })
+            })
+            return true
         }
-        return true
+
+        return false
     }
 
     override fun onTabComplete(
