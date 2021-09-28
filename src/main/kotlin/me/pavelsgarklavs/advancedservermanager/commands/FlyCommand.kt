@@ -29,15 +29,15 @@ class FlyCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
                         player.sendMessage(plugin.getConfigMessage("FlyNotSurvival"))
                     }
                 } else if ((args.size == 1) && player.hasPermission("advancedservermanager.fly.players")) {
-                    if (args[0] == plugin.getSingleOnlinePlayer()?.displayName) {
-                        if (plugin.getSingleOnlinePlayer()!!.gameMode == GameMode.SURVIVAL) {
-                            if (!plugin.getSingleOnlinePlayer()!!.isFlying && !plugin.getSingleOnlinePlayer()!!.allowFlight) {
-                                plugin.getSingleOnlinePlayer()!!.allowFlight = true
-                                plugin.getSingleOnlinePlayer()!!.isFlying = true
+                    if (args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) {
+                        if (plugin.getSingleOnlinePlayer(args[0])!!.gameMode == GameMode.SURVIVAL) {
+                            if (!plugin.getSingleOnlinePlayer(args[0])!!.isFlying && !plugin.getSingleOnlinePlayer(args[0])!!.allowFlight) {
+                                plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = true
+                                plugin.getSingleOnlinePlayer(args[0])!!.isFlying = true
                                 player.sendMessage(plugin.getConfigMessage("FlyOn"))
                             } else {
-                                plugin.getSingleOnlinePlayer()!!.allowFlight = false
-                                plugin.getSingleOnlinePlayer()!!.isFlying = false
+                                plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = false
+                                plugin.getSingleOnlinePlayer(args[0])!!.isFlying = false
                                 player.sendMessage(plugin.getConfigMessage("FlyOff"))
                             }
                         } else {
@@ -57,19 +57,19 @@ class FlyCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
             if (args.isEmpty()) {
                 println("\u001b[31mPlease provide a player to turn ON or OFF\u001B[32m: /fly [player]\u001b[0m")
             } else if (args.size == 1) {
-                if (args[0] == plugin.getSingleOnlinePlayer()?.displayName) {
-                    if (plugin.getSingleOnlinePlayer()!!.gameMode == GameMode.SURVIVAL) {
-                        if (!plugin.getSingleOnlinePlayer()!!.isFlying && !plugin.getSingleOnlinePlayer()!!.allowFlight) {
-                            plugin.getSingleOnlinePlayer()!!.allowFlight = true
-                            plugin.getSingleOnlinePlayer()!!.isFlying = true
+                if (args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) {
+                    if (plugin.getSingleOnlinePlayer(args[0])!!.gameMode == GameMode.SURVIVAL) {
+                        if (!plugin.getSingleOnlinePlayer(args[0])!!.isFlying && !plugin.getSingleOnlinePlayer(args[0])!!.allowFlight) {
+                            plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = true
+                            plugin.getSingleOnlinePlayer(args[0])!!.isFlying = true
                             println("\u001B[32mFly turned ON for ${args[0]}\u001B[0m")
                         } else {
-                            plugin.getSingleOnlinePlayer()!!.allowFlight = false
-                            plugin.getSingleOnlinePlayer()!!.isFlying = false
+                            plugin.getSingleOnlinePlayer(args[0])!!.allowFlight = false
+                            plugin.getSingleOnlinePlayer(args[0])!!.isFlying = false
                             println("\u001B[32mFly turned OFF for ${args[0]}\u001B[0m")
                         }
                     } else {
-                        println("\u001B[32mSwitch To Survival to turn \u001B[32mON \u001B[32mor \u001B[31mOFF \u001B[32mfly\u001B[0m")
+                        println("\u001B[31mSwitch player to Survival to turn fly ON or OFF\u001B[0m")
                     }
                 } else if (plugin.checkOfflinePlayer(args[0]) == null) {
                     println("\u001b[31mPlayer is offline or does not exist!\u001b[0m")

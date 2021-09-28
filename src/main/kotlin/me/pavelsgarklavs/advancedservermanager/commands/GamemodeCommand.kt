@@ -50,37 +50,37 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
                 }
             } else if (args.size == 2) {
                 if (((args[0] == "0") || (args[0].equals("survival", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
                     if (player.hasPermission("advancedservermanager.survival.players")) {
-                        plugin.getSingleOnlinePlayer()?.gameMode = GameMode.SURVIVAL
+                        plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.SURVIVAL
                         player.sendMessage(plugin.getConfigMessage("Survival"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                 } else if (((args[0] == "1") || (args[0].equals("creative", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
                     if (player.hasPermission("advancedservermanager.creative.players")) {
-                        plugin.getSingleOnlinePlayer()?.gameMode = GameMode.CREATIVE
+                        plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.CREATIVE
                         player.sendMessage(plugin.getConfigMessage("Creative"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                 } else if (((args[0] == "2") || (args[0].equals("adventure", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
                     if (player.hasPermission("advancedservermanager.adventure.players")) {
-                        plugin.getSingleOnlinePlayer()?.gameMode = GameMode.ADVENTURE
+                        plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.ADVENTURE
                         player.sendMessage(plugin.getConfigMessage("Adventure"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
                     }
                 } else if (((args[0] == "3") || (args[0].equals("spectator", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
                     if (player.hasPermission("advancedservermanager.spectator.players")) {
-                        plugin.getSingleOnlinePlayer()?.gameMode = GameMode.SPECTATOR
+                        plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.SPECTATOR
                         player.sendMessage(plugin.getConfigMessage("Spectator"))
                     } else {
                         player.sendMessage(plugin.getConfigMessage("Permissions"))
@@ -97,24 +97,24 @@ class GamemodeCommand(private val plugin: AdvancedServerManager) : CommandExecut
                 println("\u001b[31mPlease provide a player to change gamemode: \u001b[32m/gm [gamemode/0-3] [player]\u001b[0m")
             } else if (args.size == 2) {
                 if (((args[0] == "0") || (args[0].equals("survival", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
-                    plugin.getSingleOnlinePlayer()?.gameMode = GameMode.SURVIVAL
+                    plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.SURVIVAL
                     println("\u001B[32mGamemode changed for ${args[1]} to Survival\u001B[0m")
                 } else if (((args[0] == "1") || (args[0].equals("creative", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
-                    plugin.getSingleOnlinePlayer()?.gameMode = GameMode.CREATIVE
+                    plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.CREATIVE
                     println("\u001B[32mGamemode changed for ${args[1]} to Creative\u001B[0m")
                 } else if (((args[0] == "2") || (args[0].equals("adventure", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
-                    plugin.getSingleOnlinePlayer()?.gameMode = GameMode.ADVENTURE
+                    plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.ADVENTURE
                     println("\u001B[32mGamemode changed for ${args[1]} to Adventure\u001B[0m")
                 } else if (((args[0] == "3") || (args[0].equals("spectator", ignoreCase = true))) &&
-                    (args[1] == plugin.getSingleOnlinePlayer()?.displayName)
+                    (args[1] == plugin.getSingleOnlinePlayer(args[1])?.displayName)
                 ) {
-                    plugin.getSingleOnlinePlayer()?.gameMode = GameMode.SPECTATOR
+                    plugin.getSingleOnlinePlayer(args[1])?.gameMode = GameMode.SPECTATOR
                     println("\u001B[32mGamemode changed for ${args[1]} to Spectator\u001B[0m")
                 } else if (plugin.checkOfflinePlayer(args[1]) == null) {
                     println("\u001b[31mPlayer is offline or does not exist!\u001b[0m")

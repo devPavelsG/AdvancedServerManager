@@ -19,15 +19,15 @@ class GodCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
                         player.isInvulnerable = true
                         player.sendMessage(plugin.getConfigMessage("GodModeOn"))
                     }
-                } else if (((args.size == 1) && plugin.getSingleOnlinePlayer()?.gameMode == GameMode.SURVIVAL)) {
-                    if ((args[0] == plugin.getSingleOnlinePlayer()?.displayName) &&
-                        (plugin.getSingleOnlinePlayer()?.isInvulnerable == true)
+                } else if (((args.size == 1) && plugin.getSingleOnlinePlayer(args[0])?.gameMode == GameMode.SURVIVAL)) {
+                    if ((args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) &&
+                        (plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable == true)
                     ) {
-                        plugin.getSingleOnlinePlayer()?.isInvulnerable = false
-                        plugin.getSingleOnlinePlayer()?.sendMessage(plugin.getConfigMessage("GodModeOffPlayer"))
+                        plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable = false
+                        plugin.getSingleOnlinePlayer(args[0])?.sendMessage(plugin.getConfigMessage("GodModeOffPlayer"))
                     } else {
-                        plugin.getSingleOnlinePlayer()?.isInvulnerable = true
-                        plugin.getSingleOnlinePlayer()?.sendMessage(plugin.getConfigMessage("GodModeOnPlayer"))
+                        plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable = true
+                        plugin.getSingleOnlinePlayer(args[0])?.sendMessage(plugin.getConfigMessage("GodModeOnPlayer"))
                     }
                 }
             }
@@ -35,22 +35,22 @@ class GodCommand(private val plugin: AdvancedServerManager) : CommandExecutor, T
         if (sender is ConsoleCommandSender) {
             if (args.isEmpty()) {
                 println("\u001b[31mPlease provide a player: \u001B[32m/god [player]\u001B[0m")
-            } else if (((args.size == 1) && plugin.getSingleOnlinePlayer()?.gameMode == GameMode.SURVIVAL)) {
-                if ((args[0] == plugin.getSingleOnlinePlayer()?.displayName) &&
-                    (plugin.getSingleOnlinePlayer()?.isInvulnerable == true)
+            } else if (((args.size == 1) && plugin.getSingleOnlinePlayer(args[0])?.gameMode == GameMode.SURVIVAL)) {
+                if ((args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) &&
+                    (plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable == true)
                 ) {
-                    plugin.getSingleOnlinePlayer()?.isInvulnerable = false
+                    plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable = false
                     println("\u001B[32mGod Mode turned OFF for ${args[0]}\u001B[0m")
-                } else if ((args[0] == plugin.getSingleOnlinePlayer()?.displayName) &&
-                    (plugin.getSingleOnlinePlayer()?.isInvulnerable == false)
+                } else if ((args[0] == plugin.getSingleOnlinePlayer(args[0])?.displayName) &&
+                    (plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable == false)
                 ) {
-                    plugin.getSingleOnlinePlayer()?.isInvulnerable = true
+                    plugin.getSingleOnlinePlayer(args[0])?.isInvulnerable = true
                     println("\u001B[32mGod Mode turned ON for ${args[0]}\u001B[0m")
                 } else if (plugin.checkOfflinePlayer(args[0]) == null) {
                     println("\u001b[31mPlayer is offline or does not exist!\u001b[0m")
                 }
             } else {
-                println("\u001b[31mPlease Switch player to survival mode to turn god mode on!\u001b[0m")
+                println("\u001B[31mSwitch player to Survival to turn God Mode ON or OFF\u001B[0m")
             }
         }
         return true

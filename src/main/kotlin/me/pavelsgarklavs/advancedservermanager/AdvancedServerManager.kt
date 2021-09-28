@@ -17,16 +17,15 @@ class AdvancedServerManager : JavaPlugin() {
 
     fun checkOfflinePlayer(name: String): OfflinePlayer? {
         for (player in Bukkit.getOfflinePlayers()) {
-            if (player.name == name) return player
+            if (player.name.equals(name, ignoreCase = true)) return player
         }
         return null
     }
-    fun getSingleOnlinePlayer(): Player? {
-        var singlePlayer: Player? = null
+    fun getSingleOnlinePlayer(name: String): Player? {
         for (onlinePlayer in Bukkit.getOnlinePlayers()) {
-            singlePlayer = onlinePlayer.player
+            if (onlinePlayer.name.equals(name, ignoreCase = true)) return onlinePlayer
         }
-        return singlePlayer
+        return null
     }
     fun getConfigMessage(path: String): String {
         val prefix = config.getString("Prefix")
