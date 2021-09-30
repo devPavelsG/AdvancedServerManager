@@ -33,7 +33,7 @@ Spectator: "&6Gamemode changed to Spectator mode!"
 ClearWeatherCommand: "&eSun starts to shine!"
 RainWeatherCommand: "&9It's about to rain!"
 
-DayTimeCommand: "&eFinally, it not night anymore!"
+DayTimeCommand: "&eFinally, it's not night anymore!"
 NightTimeCommand: "&8Time to slay some monsters!"
 NumberTimeCommand: "&6Time set to:"
 
