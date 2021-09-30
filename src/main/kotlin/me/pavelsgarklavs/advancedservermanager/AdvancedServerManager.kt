@@ -2,15 +2,13 @@ package me.pavelsgarklavs.advancedservermanager
 
 import me.pavelsgarklavs.advancedservermanager.commands.*
 import org.bukkit.Bukkit
+import org.bukkit.Bukkit.getWorld
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
-import java.util.function.Consumer
-import java.util.function.Function
-import java.util.function.Supplier
 
 class AdvancedServerManager : JavaPlugin() {
     private val gui: GUI = GUI(this)
@@ -19,6 +17,10 @@ class AdvancedServerManager : JavaPlugin() {
     private val godCommand: GodCommand = GodCommand(this)
     private val feedCommand: FeedCommand = FeedCommand(this)
     private val healCommand: HealCommand = HealCommand(this)
+    private val weatherCommand: WeatherCommand = WeatherCommand(this)
+    private val timeCommand: SetTimeCommand = SetTimeCommand(this)
+
+    val world = getWorld("world")
 
     fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
         for (player in Bukkit.getOfflinePlayers()) {
@@ -61,6 +63,8 @@ class AdvancedServerManager : JavaPlugin() {
         getCommand("god")?.setExecutor(godCommand)
         getCommand("feed")?.setExecutor(feedCommand)
         getCommand("heal")?.setExecutor(healCommand)
+        getCommand("weather")?.setExecutor(weatherCommand)
+        getCommand("time")?.setExecutor(timeCommand)
 
         config.options().copyDefaults()
         saveDefaultConfig()

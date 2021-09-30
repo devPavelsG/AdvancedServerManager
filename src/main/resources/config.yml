@@ -9,6 +9,9 @@ Permissions: "&4You don't have permissions to use this command!"
 MustBePlayer: "&4You must be a player to use this command!"
 OfflineOrDoesNotExist: "&4Player is offline or does not exist!"
 UnknownGamemode: "&4Unknown gamemode!"
+UnknownWeather: "&4Unknown weather!"
+UnknownTime: "&4Unknown time!"
+SomethingWentWrong: "&4Something went wrong!"
 
 FlyOn: "&6Fly Turned &2ON"
 FlyOff: "&6Fly Turned &4OFF"
@@ -26,6 +29,13 @@ Creative: "&6Gamemode changed to Creative mode!"
 Survival: "&6Gamemode changed to Survival mode!"
 Adventure: "&6Gamemode changed to Adventure mode!"
 Spectator: "&6Gamemode changed to Spectator mode!"
+
+ClearWeatherCommand: "&eSun starts to shine!"
+RainWeatherCommand: "&9It's about to rain!"
+
+DayTimeCommand: "&eFinally, it not night anymore!"
+NightTimeCommand: "&8Time to slay some monsters!"
+NumberTimeCommand: "&6Time set to:"
 
 # GUI TITLE MESSAGES #
 
@@ -57,4 +67,14 @@ GodMustBeSurvivalSubtitle: "&4Enter Survival mode to turn on"
 FeedHealTitle: "&2Server fed and healed you"
 FeedHealSubtitle: ""
 
+ClearWeatherTitle: "&eSun starts to shine!"
+ClearWeatherSubtitle: ""
 
+RainWeatherTitle: "&9It's about to rain!"
+RainWeatherSubtitle: ""
+
+DayTitle: "&eFinally, it not night anymore!"
+DaySubtitle: ""
+
+NightTitle: "&8Time to slay some monsters!"
+NightSubtitle: ""

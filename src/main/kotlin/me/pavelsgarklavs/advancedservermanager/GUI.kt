@@ -5,14 +5,13 @@ import dev.triumphteam.gui.guis.Gui
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.ChatColor
-import org.bukkit.GameMode
-import org.bukkit.Material
-import org.bukkit.Sound
+import org.bukkit.*
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemFlag
+import org.bukkit.potion.PotionData
 
 class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
 
@@ -237,6 +236,96 @@ class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
                     }
                     gui.close(player)
                 }
+            /* Weather */
+            val clearWeatherItem = ItemBuilder
+                .from(Material.GLASS_BOTTLE)
+                .name(Component.text("Clear Weather", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .asGuiItem {
+                    if (player.hasPermission("advancedservermanager.weather") && plugin.world != null) {
+                        plugin.world.clearWeatherDuration = ((0..599).random()) * 20
+                        player.sendTitle(
+                            getGUIConfigMessage("ClearWeatherTitle"),
+                            getGUIConfigMessage("ClearWeatherSubtitle"),
+                            10, 60, 20
+                        )
+                        onButtonSound()
+                    } else if (plugin.world == null) {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("SomethingWentWrong"))
+                    } else {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
+                    }
+                    gui.close(player)
+                }
+
+            val rainWeatherItem = ItemBuilder
+                .from(Material.POTION)
+                .name(Component.text("Rainy Weather", NamedTextColor.BLUE, TextDecoration.BOLD))
+                .flags(ItemFlag.HIDE_POTION_EFFECTS)
+                .asGuiItem {
+                    if (player.hasPermission("advancedservermanager.weather") && plugin.world != null) {
+                        plugin.world.setStorm(true)
+                        player.sendTitle(
+                            getGUIConfigMessage("RainWeatherTitle"),
+                            getGUIConfigMessage("RainWeatherSubtitle"),
+                            10, 60, 20
+                        )
+                        onButtonSound()
+                    } else if (plugin.world == null) {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("SomethingWentWrong"))
+                    } else {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
+                    }
+                    gui.close(player)
+                }
+
+            /* Set Time */
+            val setDayItem = ItemBuilder
+                .from(Material.SUNFLOWER)
+                .name(Component.text("Day", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .asGuiItem {
+                    if (player.hasPermission("advancedservermanager.time") && plugin.world != null) {
+                        plugin.world.time = 1000
+                        player.sendTitle(
+                            getGUIConfigMessage("DayTitle"),
+                            getGUIConfigMessage("DaySubtitle"),
+                            10, 60, 20
+                        )
+                        onButtonSound()
+                    } else if (plugin.world == null) {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("SomethingWentWrong"))
+                    } else {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
+                    }
+                    gui.close(player)
+                }
+
+            val setNightItem = ItemBuilder
+                .from(Material.WITHER_ROSE)
+                .name(Component.text("Night", NamedTextColor.DARK_GRAY, TextDecoration.BOLD))
+                .asGuiItem {
+                    if (player.hasPermission("advancedservermanager.time") && plugin.world != null) {
+                        plugin.world.time = 18000
+                        player.sendTitle(
+                            getGUIConfigMessage("NightTitle"),
+                            getGUIConfigMessage("NightSubtitle"),
+                            10, 60, 20
+                        )
+                        onButtonSound()
+                    } else if (plugin.world == null) {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("SomethingWentWrong"))
+                    } else {
+                        errorButtonSound()
+                        player.sendMessage(plugin.getConfigMessage("Permissions"))
+                    }
+                    gui.close(player)
+                }
 
             /* Items -> Commands */
             gui.setItem(10, creativeItem)
@@ -245,6 +334,10 @@ class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
             gui.setItem(14, flyItem)
             gui.setItem(15, godItem)
             gui.setItem(16, feedHealItem)
+            gui.setItem(28, clearWeatherItem)
+            gui.setItem(29, rainWeatherItem)
+            gui.setItem(37, setDayItem)
+            gui.setItem(38, setNightItem)
 
 
             /* Specific Borders */
