@@ -5,6 +5,7 @@ api-version: 1.17
 authors: [ Dev_Fox ]
 description: Use Advanced Server Manager to eliminate frustration and control your server with ease
 website: pavelsgarklavs.me
+depend: [Vault]
 commands:
   admin:
     description: Open a Admin GUI

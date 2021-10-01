@@ -1,6 +1,8 @@
 package me.pavelsgarklavs.advancedservermanager
 
+import me.pavelsgarklavs.advancedservermanager.GUI.MainGUI
 import me.pavelsgarklavs.advancedservermanager.commands.*
+import net.milkbowl.vault.chat.Chat
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.getWorld
 import org.bukkit.ChatColor
@@ -11,16 +13,18 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
 
 class AdvancedServerManager : JavaPlugin() {
-    private val gui: GUI = GUI(this)
+    private val mainGui: MainGUI = MainGUI(this)
     private val gamemodeCommand: GamemodeCommand = GamemodeCommand(this)
     private val flyCommand: FlyCommand = FlyCommand(this)
     private val godCommand: GodCommand = GodCommand(this)
     private val feedCommand: FeedCommand = FeedCommand(this)
     private val healCommand: HealCommand = HealCommand(this)
     private val weatherCommand: WeatherCommand = WeatherCommand(this)
-    private val timeCommand: SetTimeCommand = SetTimeCommand(this)
+    private val timeCommand: TimeCommand = TimeCommand(this)
 
     val world = getWorld("world")
+
+    val chat = Bukkit.getServicesManager().load(Chat::class.java)
 
     fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
         for (player in Bukkit.getOfflinePlayers()) {
@@ -56,9 +60,8 @@ class AdvancedServerManager : JavaPlugin() {
     override fun onEnable() {
         println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Fox\u001b[0m")
 
-        getCommand("admin")?.setExecutor(gui)
+        getCommand("admin")?.setExecutor(mainGui)
         getCommand("gm")?.setExecutor(gamemodeCommand)
-        getCommand("gm")?.tabCompleter = gamemodeCommand
         getCommand("fly")?.setExecutor(flyCommand)
         getCommand("god")?.setExecutor(godCommand)
         getCommand("feed")?.setExecutor(feedCommand)

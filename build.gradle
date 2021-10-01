@@ -20,6 +20,9 @@ repositories {
     maven {
         url = "https://repo.mattstudios.me/artifactory/public/"
     }
+    maven {
+        url 'https://jitpack.io'
+    }
 }
 
 dependencies {
@@ -28,6 +31,7 @@ dependencies {
     implementation("net.kyori:adventure-api:4.9.1")
     implementation("net.kyori:adventure-text-serializer-legacy:4.9.1")
     implementation "dev.triumphteam:triumph-gui:3.0.3"
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
 }
 shadowJar {
     relocate("kotlin", "me.pavelsgarklavs.kotlin")

@@ -1,7 +1,10 @@
-package me.pavelsgarklavs.advancedservermanager
+package me.pavelsgarklavs.advancedservermanager.GUI
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
+import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.OfflinePlayersGUI
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.OnlinePlayersGUI
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -11,9 +14,8 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
-import org.bukkit.potion.PotionData
 
-class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
+class MainGUI(private val plugin: AdvancedServerManager) : CommandExecutor {
 
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
@@ -327,6 +329,24 @@ class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
                     gui.close(player)
                 }
 
+            /* Players GUI */
+            val onlinePlayersGUIItem = ItemBuilder
+                .from(Material.PLAYER_HEAD)
+                .name(Component.text("Online Players", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .asGuiItem {
+                    if (player.hasPermission("advancedservermanager.players")) {
+                            OnlinePlayersGUI(plugin).open(player)
+                    }
+                }
+            val offlinePlayersGUIItem = ItemBuilder
+                .from(Material.PLAYER_HEAD)
+                .name(Component.text("Offline Players", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .asGuiItem {
+                    if (player.hasPermission("advancedservermanager.players")) {
+                        OfflinePlayersGUI(plugin).open(player)
+                    }
+                }
+
             /* Items -> Commands */
             gui.setItem(10, creativeItem)
             gui.setItem(11, survivalItem)
@@ -338,6 +358,8 @@ class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
             gui.setItem(29, rainWeatherItem)
             gui.setItem(37, setDayItem)
             gui.setItem(38, setNightItem)
+            gui.setItem(34, onlinePlayersGUIItem)
+            gui.setItem(43, offlinePlayersGUIItem)
 
 
             /* Specific Borders */
@@ -349,6 +371,8 @@ class GUI(private val plugin: AdvancedServerManager) : CommandExecutor {
             gui.setItem(23, borderItem)
             gui.setItem(24, borderItem)
             gui.setItem(25, borderItem)
+            gui.setItem(33, borderItem)
+            gui.setItem(42, borderItem)
 
             if (player.hasPermission("advancedservermanager.admin")) {
                 gui.open(player)
