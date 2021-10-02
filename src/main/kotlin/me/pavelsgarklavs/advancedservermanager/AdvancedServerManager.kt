@@ -22,41 +22,6 @@ class AdvancedServerManager : JavaPlugin() {
     private val weatherCommand: WeatherCommand = WeatherCommand(this)
     private val timeCommand: TimeCommand = TimeCommand(this)
 
-    val world = getWorld("world")
-
-    val chat = Bukkit.getServicesManager().load(Chat::class.java)
-
-    fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
-        for (player in Bukkit.getOfflinePlayers()) {
-            if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
-        }
-        return Optional.empty()
-    }
-    fun getOnlinePlayer(name: String): Optional<Player> {
-        for (player in Bukkit.getOnlinePlayers()) {
-            if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
-        }
-        return Optional.empty()
-    }
-    fun getConfigMessage(path: String): String {
-        val prefix = config.getString("Prefix")
-            ?.let { ChatColor.translateAlternateColorCodes('&', it) }
-        val message = config.getString(path)
-            ?.let { ChatColor.translateAlternateColorCodes('&', it) }
-        return if(prefix?.isEmpty() == true) message.toString() else "$prefix $message"
-    }
-    fun ifPermissible(sender: CommandSender, permission: String, action: Runnable, mustBePlayer: Boolean = false) {
-        if(!sender.hasPermission(permission)) {
-            sender.sendMessage(getConfigMessage("Permissions"))
-        } else {
-            if(!mustBePlayer || sender is Player) {
-                action.run()
-            } else {
-                sender.sendMessage(getConfigMessage("MustBePlayer"))
-            }
-        }
-    }
-
     override fun onEnable() {
         println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Fox\u001b[0m")
 

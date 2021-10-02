@@ -1,26 +1,27 @@
 package me.pavelsgarklavs.advancedservermanager.commands
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import org.bukkit.Bukkit
 import org.bukkit.command.*
 import org.bukkit.entity.Player
 
-class HealCommand(private val plugin: AdvancedServerManager) : CommandExecutor, TabCompleter {
+class HealCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter, Utils(plugin) {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if(args.isEmpty()) {
-            plugin.ifPermissible(sender, "advancedservermanager.heal", {
+            ifPermissible(sender, "advancedservermanager.heal", {
                 val player: Player = sender as Player
                 player.health = 20.0
-                player.sendMessage(plugin.getConfigMessage("Heal"))
+                player.sendMessage(getConfigMessage("Heal"))
             }, true)
             return true
         } else if(args.size == 1) {
-            plugin.ifPermissible(sender, "advancedservermanager.heal.players", {
-                plugin.getOnlinePlayer(args[0]).ifPresentOrElse({
+            ifPermissible(sender, "advancedservermanager.heal.players", {
+                getOnlinePlayer(args[0]).ifPresentOrElse({
                     it.health = 20.0
-                    sender.sendMessage(plugin.getConfigMessage("Heal"))
+                    sender.sendMessage(getConfigMessage("Heal"))
                 }, {
-                    sender.sendMessage(plugin.getConfigMessage("OfflineOrDoesNotExist"))
+                    sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             })
             return true

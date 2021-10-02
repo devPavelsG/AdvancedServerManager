@@ -4,13 +4,14 @@ import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import dev.triumphteam.gui.guis.PaginatedGui
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
-class OnlinePlayersGUI(private val plugin: AdvancedServerManager) {
+class OnlinePlayersGUI(plugin: AdvancedServerManager): Utils(plugin) {
     private lateinit var playersGUI: PaginatedGui
 
     init {
@@ -45,7 +46,7 @@ class OnlinePlayersGUI(private val plugin: AdvancedServerManager) {
         if (player.hasPermission("advancedservermanager.admin")) {
             playersGUI.open(player)
         } else {
-            player.sendMessage(plugin.getConfigMessage("Permissions"))
+            player.sendMessage(getConfigMessage("Permissions"))
         }
     }
 }

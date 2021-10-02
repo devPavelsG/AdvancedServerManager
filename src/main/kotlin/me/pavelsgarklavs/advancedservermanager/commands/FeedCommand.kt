@@ -1,26 +1,27 @@
 package me.pavelsgarklavs.advancedservermanager.commands
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import org.bukkit.Bukkit
 import org.bukkit.command.*
 import org.bukkit.entity.Player
 
-class FeedCommand(private val plugin: AdvancedServerManager) : CommandExecutor, TabCompleter {
+class FeedCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter, Utils(plugin) {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if(args.isEmpty()) {
-            plugin.ifPermissible(sender, "advancedservermanager.feed", {
+            ifPermissible(sender, "advancedservermanager.feed", {
                 val player: Player = sender as Player
                 player.foodLevel = 20
-                sender.sendMessage(plugin.getConfigMessage("Feed"))
+                sender.sendMessage(getConfigMessage("Feed"))
             }, true)
             return true
         } else if(args.size == 1) {
-            plugin.ifPermissible(sender, "advancedservermanager.feed.players", {
-                plugin.getOnlinePlayer(args[0]).ifPresentOrElse({
+            ifPermissible(sender, "advancedservermanager.feed.players", {
+                getOnlinePlayer(args[0]).ifPresentOrElse({
                     it.foodLevel = 20
-                    sender.sendMessage(plugin.getConfigMessage("Feed"))
+                    sender.sendMessage(getConfigMessage("Feed"))
                 }, {
-                    sender.sendMessage(plugin.getConfigMessage("OfflineOrDoesNotExist"))
+                    sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             })
             return true
