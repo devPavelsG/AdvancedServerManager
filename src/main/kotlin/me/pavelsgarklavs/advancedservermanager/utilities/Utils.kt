@@ -19,15 +19,12 @@ abstract class Utils(val plugin: AdvancedServerManager) {
         return plugin.config.getString(path)
             ?.let { ChatColor.translateAlternateColorCodes('&', it) }
     }
-
     fun onButtonSound(player: Player) {
         return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 20F, 0F)
     }
-
     fun errorButtonSound(player: Player) {
         return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
     }
-
     fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
         for (player in Bukkit.getOfflinePlayers()) {
             if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
