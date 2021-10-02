@@ -24,19 +24,6 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
         if (sender is Player) {
             val player: Player = sender
 
-            fun onButtonSound() {
-                return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 20F, 0F)
-            }
-
-            fun errorButtonSound() {
-                return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
-            }
-
-            fun getGUIConfigMessage(path: String): String? {
-                return plugin.config.getString(path)
-                    ?.let { ChatColor.translateAlternateColorCodes('&', it) }
-            }
-
             /* GUI */
             val gui: Gui = Gui.gui()
                 .rows(6)
@@ -74,9 +61,9 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                                 10, 60, 20
                             )
                         }
-                        onButtonSound()
+                        onButtonSound(player)
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
@@ -95,18 +82,18 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                                 getGUIConfigMessage("SurvivalSubtitleOn"),
                                 10, 60, 20
                             )
-                            onButtonSound()
+                            onButtonSound(player)
                         } else {
                             player.sendTitle(
                                 getGUIConfigMessage("SurvivalAlreadyOnTitle"),
                                 getGUIConfigMessage("SurvivalSubtitleOn"),
                                 10, 60, 20
                             )
-                            errorButtonSound()
+                            errorButtonSound(player)
                         }
                     } else {
                         player.sendMessage(getConfigMessage("Permissions"))
-                        errorButtonSound()
+                        errorButtonSound(player)
                     }
                     gui.close(player)
                 }
@@ -126,16 +113,16 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             )
                         } else {
                             player.gameMode = GameMode.SURVIVAL
-                            onButtonSound()
+                            onButtonSound(player)
                             player.sendTitle(
                                 getGUIConfigMessage("SpectatorTitle"),
                                 getGUIConfigMessage("SpectatorSubtitleOff"),
                                 10, 60, 20
                             )
                         }
-                        onButtonSound()
+                        onButtonSound(player)
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
@@ -165,18 +152,18 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                                     10, 60, 20
                                 )
                             }
-                            onButtonSound()
+                            onButtonSound(player)
                         } else {
                             player.sendTitle(
                                 getGUIConfigMessage("FlyMustBeSurvivalTitle"),
                                 getGUIConfigMessage("FlyMustBeSurvivalSubtitle"),
                                 10, 60, 20
                             )
-                            errorButtonSound()
+                            errorButtonSound(player)
                         }
                     } else {
                         player.sendMessage(getConfigMessage("Permissions"))
-                        errorButtonSound()
+                        errorButtonSound(player)
                     }
                     gui.close(player)
                 }
@@ -203,18 +190,18 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                                     10, 60, 20
                                 )
                             }
-                            onButtonSound()
+                            onButtonSound(player)
                         } else {
                             player.sendTitle(
                                 getGUIConfigMessage("GodMustBeSurvivalTitle"),
                                 getGUIConfigMessage("GodMustBeSurvivalSubtitle"),
                                 10, 60, 20
                             )
-                            errorButtonSound()
+                            errorButtonSound(player)
                         }
                     } else {
                         player.sendMessage(getConfigMessage("Permissions"))
-                        errorButtonSound()
+                        errorButtonSound(player)
                     }
                     gui.close(player)
                 }
@@ -232,9 +219,9 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             getGUIConfigMessage("FeedHealSubtitle"),
                             10, 60, 20
                         )
-                        onButtonSound()
+                        onButtonSound(player)
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
@@ -251,12 +238,12 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             getGUIConfigMessage("ClearWeatherSubtitle"),
                             10, 60, 20
                         )
-                        onButtonSound()
+                        onButtonSound(player)
                     } else if (world == null) {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
@@ -274,12 +261,12 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             getGUIConfigMessage("RainWeatherSubtitle"),
                             10, 60, 20
                         )
-                        onButtonSound()
+                        onButtonSound(player)
                     } else if (world == null) {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
@@ -297,12 +284,12 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             getGUIConfigMessage("DaySubtitle"),
                             10, 60, 20
                         )
-                        onButtonSound()
+                        onButtonSound(player)
                     } else if (world == null) {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
@@ -319,12 +306,12 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             getGUIConfigMessage("NightSubtitle"),
                             10, 60, 20
                         )
-                        onButtonSound()
+                        onButtonSound(player)
                     } else if (world == null) {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
-                        errorButtonSound()
+                        errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
                     gui.close(player)
