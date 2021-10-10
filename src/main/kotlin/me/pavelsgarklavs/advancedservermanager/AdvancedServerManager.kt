@@ -2,15 +2,9 @@ package me.pavelsgarklavs.advancedservermanager
 
 import me.pavelsgarklavs.advancedservermanager.GUI.MainGUI
 import me.pavelsgarklavs.advancedservermanager.commands.*
-import net.milkbowl.vault.chat.Chat
-import org.bukkit.Bukkit
-import org.bukkit.Bukkit.getWorld
-import org.bukkit.ChatColor
-import org.bukkit.OfflinePlayer
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
+import me.pavelsgarklavs.advancedservermanager.commands.Home.HomeCommand
+import me.pavelsgarklavs.advancedservermanager.commands.Home.SetHomeCommand
 import org.bukkit.plugin.java.JavaPlugin
-import java.util.*
 
 class AdvancedServerManager : JavaPlugin() {
     private val mainGui: MainGUI = MainGUI(this)
@@ -21,6 +15,8 @@ class AdvancedServerManager : JavaPlugin() {
     private val healCommand: HealCommand = HealCommand(this)
     private val weatherCommand: WeatherCommand = WeatherCommand(this)
     private val timeCommand: TimeCommand = TimeCommand(this)
+    private val setHomeCommand: SetHomeCommand = SetHomeCommand(this)
+    private val homeCommand: HomeCommand = HomeCommand(this)
 
     override fun onEnable() {
         println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Fox\u001b[0m")
@@ -33,6 +29,8 @@ class AdvancedServerManager : JavaPlugin() {
         getCommand("heal")?.setExecutor(healCommand)
         getCommand("weather")?.setExecutor(weatherCommand)
         getCommand("time")?.setExecutor(timeCommand)
+        getCommand("sethome")?.setExecutor(setHomeCommand)
+        getCommand("home")?.setExecutor(homeCommand)
 
         config.options().copyDefaults()
         saveDefaultConfig()

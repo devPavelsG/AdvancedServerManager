@@ -37,6 +37,9 @@ DayTimeCommand: "&eFinally, it's not night anymore!"
 NightTimeCommand: "&8Time to slay some monsters!"
 NumberTimeCommand: "&6Time set to:"
 
+SetHome: "&6Home has been set!"
+GoHome: "&6You teleported to home!"
+
 # GUI TITLE MESSAGES #
 
 CreativeTitle: "&6Creative Mode"

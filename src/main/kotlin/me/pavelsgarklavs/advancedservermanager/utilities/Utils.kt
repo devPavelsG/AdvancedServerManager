@@ -13,7 +13,6 @@ import java.util.*
 abstract class Utils(val plugin: AdvancedServerManager) {
 
     val world = Bukkit.getWorld("world")
-    val chat = Bukkit.getServicesManager().load(Chat::class.java)
 
     fun getGUIConfigMessage(path: String): String? {
         return plugin.config.getString(path)
