@@ -23,15 +23,19 @@ repositories {
     maven {
         url 'https://jitpack.io'
     }
+    maven {
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31'
-    implementation("net.kyori:adventure-api:4.9.1")
-    implementation("net.kyori:adventure-text-serializer-legacy:4.9.1")
+    implementation('net.kyori:adventure-api:4.9.2')
+    implementation('net.kyori:adventure-text-serializer-legacy:4.9.2')
     implementation "dev.triumphteam:triumph-gui:3.0.3"
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    compileOnly 'me.clip:placeholderapi:2.10.10'
 }
 shadowJar {
     relocate("kotlin", "me.pavelsgarklavs.kotlin")
@@ -40,7 +44,7 @@ shadowJar {
     relocate("net.kyori:adventure-text-serializer-legacy:4.9.1", "me.pavelsgarklavs.adventure-text-serializer-legacy" )
 }
 
-def targetJavaVersion = 16
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -66,11 +70,11 @@ processResources {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "16"
+        jvmTarget = "17"
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "16"
+        jvmTarget = "17"
     }
 }
