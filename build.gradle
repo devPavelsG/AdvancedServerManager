@@ -44,7 +44,7 @@ shadowJar {
     relocate("net.kyori:adventure-text-serializer-legacy:4.9.1", "me.pavelsgarklavs.adventure-text-serializer-legacy" )
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 16
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -70,11 +70,11 @@ processResources {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "16"
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "16"
     }
 }
