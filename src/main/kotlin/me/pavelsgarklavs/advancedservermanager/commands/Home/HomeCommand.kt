@@ -33,9 +33,8 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
 
                     player.teleport(loc)
                     sender.sendMessage(getConfigMessage("GoHome"))
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    sender.sendMessage(getConfigMessage("SomethingWentWrong"))
+                } catch (e: NullPointerException) {
+                    sender.sendMessage(getConfigMessage("HomeDoesNotExist"))
                 }
             }, true)
             return true
@@ -57,8 +56,8 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     player.teleport(loc)
                     sender.sendMessage(getConfigMessage("GoHome"))
                 } catch (e: NullPointerException) {
-                    if (getConfigMessage("HomeDoesNotExist").contains("%player_name%")) {
-                        val message = getConfigMessage("HomeDoesNotExist").replace("%player_name%", args[0])
+                    if (getConfigMessage("HomeDoesNotExistOthers").contains("%player_name%")) {
+                        val message = getConfigMessage("HomeDoesNotExistOthers").replace("%player_name%", args[0])
                         sender.sendMessage(message)
                     } else sender.sendMessage(getConfigMessage("SomethingWentWrong"))
                 }
