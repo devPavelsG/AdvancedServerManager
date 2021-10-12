@@ -22,11 +22,12 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                 try {
                     val homes: FileConfiguration =
                         YamlConfiguration.loadConfiguration(File(plugin.dataFolder, "homes.yml"))
+                    val playerUUID = player.uniqueId.toString()
 
-                    val x = homes.get(player.name + ".x")
-                    val y = homes.get(player.name + ".y")
-                    val z = homes.get(player.name + ".z")
-                    val playerWorld = homes.get(player.name + ".world")
+                    val x = homes.get("$playerUUID.x")
+                    val y = homes.get("$playerUUID.y")
+                    val z = homes.get("$playerUUID.z")
+                    val playerWorld = homes.get("$playerUUID.world")
 
                     val world = Bukkit.getServer().getWorld(playerWorld.toString())
                     val loc = Location(world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble())
@@ -44,11 +45,12 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                 try {
                     val homes: FileConfiguration =
                         YamlConfiguration.loadConfiguration(File(plugin.dataFolder, "homes.yml"))
+                    val playerUUID = Bukkit.getPlayer(args[0])?.uniqueId.toString()
 
-                    val x = homes.get(args[0] + ".x")
-                    val y = homes.get(args[0] + ".y")
-                    val z = homes.get(args[0] + ".z")
-                    val playerWorld = homes.get(args[0] + ".world")
+                    val x = homes.get("$playerUUID.x")
+                    val y = homes.get("$playerUUID.y")
+                    val z = homes.get("$playerUUID.z")
+                    val playerWorld = homes.get("$playerUUID.world")
 
                     val world = Bukkit.getServer().getWorld(playerWorld.toString())
                     val loc = Location(world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble())
