@@ -39,6 +39,7 @@ NumberTimeCommand: "&6Time set to:"
 
 SetHome: "&6Home has been set!"
 GoHome: "&6You teleported to home!"
+GoHomePlayers: "&6You teleported to &2%player_name% &6home!"
 HomeDoesNotExist: "&4Home does not exist!"
 HomeDoesNotExistOthers: "&6%player_name% &4home does not exist!"
 

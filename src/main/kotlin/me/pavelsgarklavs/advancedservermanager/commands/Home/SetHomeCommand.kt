@@ -18,16 +18,16 @@ class SetHomeCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plu
             ifPermissible(sender, "advancedservermanager.sethome", {
                 val player: Player = sender as Player
                 try {
-                    val file = File(plugin.dataFolder, "homes.yml")
-                    val config = YamlConfiguration()
-                    if (!file.exists()) {
-                        file.createNewFile()
-                    }
                     val playerUUID = player.uniqueId.toString()
+                    val file = File(plugin.dataFolder, "homes.yml")
+                    if (!file.exists()) { file.createNewFile() }
+                    val config = YamlConfiguration.loadConfiguration(file)
 
                     config.set("$playerUUID.x", player.location.blockX)
                     config.set("$playerUUID.y", player.location.blockY)
                     config.set("$playerUUID.z", player.location.blockZ)
+                    config.set("$playerUUID.pitch", player.location.pitch)
+                    config.set("$playerUUID.yaw", player.location.yaw)
                     config.set("$playerUUID.world", player.world.name)
 
                     config.save(file)
