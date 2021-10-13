@@ -13,30 +13,39 @@ class TimeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
         try {
             if (args.size == 1 && args[0].equals("day", ignoreCase = true)) {
                 ifPermissible(sender, "advancedservermanager.time", {
-                    if (world != null) {
-                        world.time = 1000
-                        sender.sendMessage(getConfigMessage("DayTimeCommand"))
-                    } else {
+                    try {
+                        if (world != null) {
+                            world.time = 1000
+                            sender.sendMessage(getConfigMessage("DayTimeCommand"))
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                         sender.sendMessage(getConfigMessage("SomethingWentWrong"))
                     }
                 }, false)
             } else if (args.size == 1 && args[0].equals("night", ignoreCase = true)) {
                 ifPermissible(sender, "advancedservermanager.time", {
-                    if (world != null) {
-                        world.time = 18000
-                        sender.sendMessage(getConfigMessage("NightTimeCommand"))
-                    } else {
+                    try {
+                        if (world != null) {
+                            world.time = 18000
+                            sender.sendMessage(getConfigMessage("NightTimeCommand"))
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                         sender.sendMessage(getConfigMessage("SomethingWentWrong"))
                     }
                 }, false)
                 return true
             } else if (args.size == 1 && (args[0].toLong() > 0 && args[0].toLong() < Long.MAX_VALUE)) {
                 ifPermissible(sender, "advancedservermanager.time", {
-                    if (world != null) {
-                        world.time = args[0].toLong()
-                        sender.sendMessage(getConfigMessage("NumberTimeCommand") + " ${ChatColor.GOLD}${args[0]}")
-                    } else {
-                        sender.sendMessage(getConfigMessage("SomethingWentWrong"))
+                    try {
+                        if (world != null) {
+                            world.time = args[0].toLong()
+                            sender.sendMessage(getConfigMessage("NumberTimeCommand") + " ${ChatColor.GOLD}${args[0]}")
+                        }
+                    } catch (e: Exception) {
+                            e.printStackTrace()
+                            sender.sendMessage(getConfigMessage("SomethingWentWrong"))
                     }
                 }, false)
             } else if (args.size == 1 && args[0].contains("-")) {
