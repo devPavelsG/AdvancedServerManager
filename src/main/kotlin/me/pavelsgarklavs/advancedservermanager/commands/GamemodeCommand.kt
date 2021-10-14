@@ -4,7 +4,10 @@ import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
-import org.bukkit.command.*
+import org.bukkit.command.Command
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
 class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter, Utils(plugin) {
@@ -21,19 +24,25 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     val player: Player = sender as Player
                     player.gameMode = GameMode.SURVIVAL
                     sender.sendMessage(getConfigMessage("Survival"))
-                })
+                }, true)
             } else if ((args[0] == "1") || (args[0].equals("creative", ignoreCase = true))) {
                 ifPermissible(sender, "advancedservermanager.creative", {
                     val player: Player = sender as Player
                     player.gameMode = GameMode.CREATIVE
                     sender.sendMessage(getConfigMessage("Creative"))
-                })
+                }, true)
             } else if ((args[0] == "2") || (args[0].equals("adventure", ignoreCase = true))) {
                 ifPermissible(sender, "advancedservermanager.adventure", {
                     val player: Player = sender as Player
                     player.gameMode = GameMode.ADVENTURE
                     sender.sendMessage(getConfigMessage("Adventure"))
-                })
+                }, true)
+            } else if ((args[0] == "3") || (args[0].equals("spectator", ignoreCase = true))) {
+                ifPermissible(sender, "advancedservermanager.spectator", {
+                    val player: Player = sender as Player
+                    player.gameMode = GameMode.SPECTATOR
+                    sender.sendMessage(getConfigMessage("Spectator"))
+                }, true)
             }
             return true
         } else if (args.size == 2) {
@@ -45,7 +54,7 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     }, {
                         sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                     })
-                })
+                }, false)
             } else if (((args[0] == "1") || (args[0].equals("creative", ignoreCase = true)))) {
                 ifPermissible(sender, "advancedservermanager.creative.players", {
                     getOnlinePlayer(args[1]).ifPresentOrElse({
@@ -54,7 +63,7 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     }, {
                         sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                     })
-                })
+                }, false)
             } else if (((args[0] == "2") || (args[0].equals("adventure", ignoreCase = true)))) {
                 ifPermissible(sender, "advancedservermanager.adventure.players", {
                     getOnlinePlayer(args[1]).ifPresentOrElse({
@@ -63,7 +72,7 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     }, {
                         sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                     })
-                })
+                }, false)
             } else if (((args[0] == "3") || (args[0].equals("spectator", ignoreCase = true)))) {
                 ifPermissible(sender, "advancedservermanager.spectator.players", {
                     getOnlinePlayer(args[1]).ifPresentOrElse({
@@ -72,7 +81,7 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     }, {
                         sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                     })
-                })
+                }, false)
             } else {
                 sender.sendMessage(getConfigMessage("UnknownGamemode"))
             }

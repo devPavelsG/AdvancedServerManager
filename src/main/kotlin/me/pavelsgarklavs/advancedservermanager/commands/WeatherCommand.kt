@@ -11,21 +11,13 @@ class WeatherCommand(plugin: AdvancedServerManager) : CommandExecutor, TabComple
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (args.size == 1 && args[0].equals("clear", ignoreCase = true)) {
             ifPermissible(sender, "advancedservermanager.weather", {
-                if (world != null) {
-                    world.clearWeatherDuration = ((0..599).random()) * 20
-                    sender.sendMessage(getConfigMessage("ClearWeatherCommand"))
-                } else {
-                    sender.sendMessage(getConfigMessage("SomethingWentWrong"))
-                }
+                getOverWorld()?.clearWeatherDuration = ((0..599).random()) * 20
+                sender.sendMessage(getConfigMessage("ClearWeatherCommand"))
             }, false)
         } else if (args.size == 1 && args[0].equals("rain", ignoreCase = true)) {
             ifPermissible(sender, "advancedservermanager.weather", {
-                if (world != null) {
-                    world.setStorm(true)
-                    sender.sendMessage(getConfigMessage("RainWeatherCommand"))
-                } else {
-                    sender.sendMessage(getConfigMessage("SomethingWentWrong"))
-                }
+                getOverWorld()?.setStorm(true)
+                sender.sendMessage(getConfigMessage("RainWeatherCommand"))
             }, false)
             return true
         } else if (args.isEmpty() || args[0] != "clear" || args[0] != "rain") {

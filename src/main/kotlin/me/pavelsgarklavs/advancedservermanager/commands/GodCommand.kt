@@ -3,12 +3,15 @@ package me.pavelsgarklavs.advancedservermanager.commands
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import org.bukkit.Bukkit
-import org.bukkit.command.*
+import org.bukkit.command.Command
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
 class GodCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter, Utils(plugin) {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        if(args.isEmpty()) {
+        if (args.isEmpty()) {
             ifPermissible(sender, "advancedservermanager.god", {
                 val player: Player = sender as Player
                 if (player.isInvulnerable) {
@@ -20,7 +23,7 @@ class GodCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                 }
             }, true)
             return true
-        } else if(args.size == 1) {
+        } else if (args.size == 1) {
             ifPermissible(sender, "advancedservermanager.god.players", {
                 getOnlinePlayer(args[0]).ifPresentOrElse({
                     if (it.isInvulnerable) {
@@ -33,7 +36,7 @@ class GodCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
-            })
+            }, false)
             return true
         }
         return false

@@ -8,10 +8,8 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
-import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
-import org.bukkit.util.Vector
 import java.io.File
 
 
@@ -33,10 +31,10 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     val playerWorld = homes.get("$playerUUID.world")
 
                     val world = Bukkit.getServer().getWorld(playerWorld.toString())
-                    val loc = Location(world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble(),
+                    val loc = Location(
+                        world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble(),
                         (yaw as Double).toFloat(), (pitch as Double).toFloat()
                     )
-
                     player.teleport(loc)
                     sender.sendMessage(getConfigMessage("GoHome"))
                 } catch (e: NullPointerException) {
@@ -60,8 +58,10 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     val playerWorld = homes.get("$playerUUID.world")
 
                     val world = Bukkit.getServer().getWorld(playerWorld.toString())
-                    val loc = Location(world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble(),
-                        (yaw as Double).toFloat(), (pitch as Double).toFloat())
+                    val loc = Location(
+                        world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble(),
+                        (yaw as Double).toFloat(), (pitch as Double).toFloat()
+                    )
 
                     player.teleport(loc)
 

@@ -2,14 +2,12 @@ package me.pavelsgarklavs.advancedservermanager.commands.Home
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
-import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
-import java.util.*
 
 
 class SetHomeCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
@@ -20,7 +18,9 @@ class SetHomeCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plu
                 try {
                     val playerUUID = player.uniqueId.toString()
                     val file = File(plugin.dataFolder, "homes.yml")
-                    if (!file.exists()) { file.createNewFile() }
+                    if (!file.exists()) {
+                        file.createNewFile()
+                    }
                     val config = YamlConfiguration.loadConfiguration(file)
 
                     config.set("$playerUUID.x", player.location.blockX)

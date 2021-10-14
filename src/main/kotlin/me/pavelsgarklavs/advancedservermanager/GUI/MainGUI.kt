@@ -9,7 +9,8 @@ import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.*
+import org.bukkit.GameMode
+import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -231,17 +232,14 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .from(Material.GLASS_BOTTLE)
                 .name(Component.text("Clear Weather", NamedTextColor.GOLD, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.weather") && world != null) {
-                        world.clearWeatherDuration = ((0..599).random()) * 20
+                    if (player.hasPermission("advancedservermanager.weather")) {
+                        getOverWorld()?.clearWeatherDuration = ((0..599).random()) * 20
                         player.sendTitle(
                             getGUIConfigMessage("ClearWeatherTitle"),
                             getGUIConfigMessage("ClearWeatherSubtitle"),
                             10, 60, 20
                         )
                         onButtonSound(player)
-                    } else if (world == null) {
-                        errorButtonSound(player)
-                        player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
@@ -254,17 +252,14 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .name(Component.text("Rainy Weather", NamedTextColor.BLUE, TextDecoration.BOLD))
                 .flags(ItemFlag.HIDE_POTION_EFFECTS)
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.weather") && world != null) {
-                        world.setStorm(true)
+                    if (player.hasPermission("advancedservermanager.weather")) {
+                        getOverWorld()?.setStorm(true)
                         player.sendTitle(
                             getGUIConfigMessage("RainWeatherTitle"),
                             getGUIConfigMessage("RainWeatherSubtitle"),
                             10, 60, 20
                         )
                         onButtonSound(player)
-                    } else if (world == null) {
-                        errorButtonSound(player)
-                        player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
@@ -277,17 +272,14 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .from(Material.SUNFLOWER)
                 .name(Component.text("Day", NamedTextColor.YELLOW, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.time") && world != null) {
-                        world.time = 1000
+                    if (player.hasPermission("advancedservermanager.time")) {
+                        getOverWorld()?.time = 1000
                         player.sendTitle(
                             getGUIConfigMessage("DayTitle"),
                             getGUIConfigMessage("DaySubtitle"),
                             10, 60, 20
                         )
                         onButtonSound(player)
-                    } else if (world == null) {
-                        errorButtonSound(player)
-                        player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
@@ -299,17 +291,14 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .from(Material.WITHER_ROSE)
                 .name(Component.text("Night", NamedTextColor.DARK_GRAY, TextDecoration.BOLD))
                 .asGuiItem {
-                    if (player.hasPermission("advancedservermanager.time") && world != null) {
-                        world.time = 18000
+                    if (player.hasPermission("advancedservermanager.time")) {
+                        getOverWorld()?.time = 18000
                         player.sendTitle(
                             getGUIConfigMessage("NightTitle"),
                             getGUIConfigMessage("NightSubtitle"),
                             10, 60, 20
                         )
                         onButtonSound(player)
-                    } else if (world == null) {
-                        errorButtonSound(player)
-                        player.sendMessage(getConfigMessage("SomethingWentWrong"))
                     } else {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
@@ -323,7 +312,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .name(Component.text("Online Players", NamedTextColor.GOLD, TextDecoration.BOLD))
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.players")) {
-                            OnlinePlayersGUI(plugin).open(player)
+                        OnlinePlayersGUI(plugin).open(player)
                     }
                 }
             val offlinePlayersGUIItem = ItemBuilder

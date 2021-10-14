@@ -11,7 +11,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
-class OnlinePlayersGUI(plugin: AdvancedServerManager): Utils(plugin) {
+class OnlinePlayersGUI(plugin: AdvancedServerManager) : Utils(plugin) {
     private lateinit var playersGUI: PaginatedGui
 
     init {
@@ -41,7 +41,7 @@ class OnlinePlayersGUI(plugin: AdvancedServerManager): Utils(plugin) {
     }
 
     fun open(player: Player, refresh: Boolean = true) {
-        if(refresh) refreshGUI()
+        if (refresh) refreshGUI()
 
         if (player.hasPermission("advancedservermanager.admin")) {
             playersGUI.open(player)

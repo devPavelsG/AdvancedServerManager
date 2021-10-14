@@ -13,40 +13,19 @@ class TimeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
         try {
             if (args.size == 1 && args[0].equals("day", ignoreCase = true)) {
                 ifPermissible(sender, "advancedservermanager.time", {
-                    try {
-                        if (world != null) {
-                            world.time = 1000
-                            sender.sendMessage(getConfigMessage("DayTimeCommand"))
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        sender.sendMessage(getConfigMessage("SomethingWentWrong"))
-                    }
+                    getOverWorld()?.time = 1000
+                    sender.sendMessage(getConfigMessage("DayTimeCommand"))
                 }, false)
             } else if (args.size == 1 && args[0].equals("night", ignoreCase = true)) {
                 ifPermissible(sender, "advancedservermanager.time", {
-                    try {
-                        if (world != null) {
-                            world.time = 18000
-                            sender.sendMessage(getConfigMessage("NightTimeCommand"))
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        sender.sendMessage(getConfigMessage("SomethingWentWrong"))
-                    }
+                    getOverWorld()?.time = 18000
+                    sender.sendMessage(getConfigMessage("NightTimeCommand"))
                 }, false)
                 return true
             } else if (args.size == 1 && (args[0].toLong() > 0 && args[0].toLong() < Long.MAX_VALUE)) {
                 ifPermissible(sender, "advancedservermanager.time", {
-                    try {
-                        if (world != null) {
-                            world.time = args[0].toLong()
-                            sender.sendMessage(getConfigMessage("NumberTimeCommand") + " ${ChatColor.GOLD}${args[0]}")
-                        }
-                    } catch (e: Exception) {
-                            e.printStackTrace()
-                            sender.sendMessage(getConfigMessage("SomethingWentWrong"))
-                    }
+                    getOverWorld()?.time = args[0].toLong()
+                    sender.sendMessage(getConfigMessage("NumberTimeCommand") + " ${ChatColor.GOLD}${args[0]}")
                 }, false)
             } else if (args.size == 1 && args[0].contains("-")) {
                 sender.sendMessage(getConfigMessage("UnknownTime"))

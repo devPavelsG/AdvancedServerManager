@@ -4,7 +4,10 @@ import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
-import org.bukkit.command.*
+import org.bukkit.command.Command
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
 class FlyCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter, Utils(plugin) {
@@ -29,7 +32,7 @@ class FlyCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                 }
             }, true)
             return true
-        } else if(args.size == 1) {
+        } else if (args.size == 1) {
             ifPermissible(sender, "advancedservermanager.fly.players", {
                 getOnlinePlayer(args[0]).ifPresentOrElse({
                     if (it.gameMode == GameMode.SURVIVAL) {
@@ -48,7 +51,7 @@ class FlyCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
-            })
+            }, false)
             return true
         }
 
