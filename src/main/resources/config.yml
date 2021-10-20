@@ -1,6 +1,12 @@
 # Advanced Admin GUI Config #
 # Author: Dev_Pavels #
 
+# Configuration #
+
+GUIAutoClose: false
+ErrorSound: true
+SuccessfulSound: true
+
 # Messages #
 
 Prefix: "&7[&4ASM&7]"

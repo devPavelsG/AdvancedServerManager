@@ -41,6 +41,23 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
 
             gui.filler.fillBorder(borderItem)
 
+            /* GUI Close */
+            if (!plugin.config.getBoolean("GUIAutoClose")) {
+                val closeButton = ItemBuilder
+                    .from(Material.BARRIER)
+                    .name(Component.text("Close GUI", NamedTextColor.RED, TextDecoration.BOLD))
+                    .asGuiItem {
+                        gui.close(player)
+                        onButtonSound(player)
+                    }
+                gui.setItem(49, closeButton)
+            }
+            fun guiClose() {
+                if (plugin.config.getBoolean("GUIAutoClose")) {
+                    gui.close(player)
+                }
+            }
+
             /* Creative Mode */
             val creativeItem = ItemBuilder
                 .from(Material.GOLDEN_APPLE)
@@ -67,7 +84,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* Survival Mode */
@@ -96,7 +113,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         player.sendMessage(getConfigMessage("Permissions"))
                         errorButtonSound(player)
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* Spectator Mode */
@@ -126,7 +143,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* Fly */
@@ -166,7 +183,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         player.sendMessage(getConfigMessage("Permissions"))
                         errorButtonSound(player)
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* God Mode */
@@ -204,7 +221,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         player.sendMessage(getConfigMessage("Permissions"))
                         errorButtonSound(player)
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* Feed/Heal */
@@ -225,7 +242,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
             /* Weather */
             val clearWeatherItem = ItemBuilder
@@ -244,7 +261,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             val rainWeatherItem = ItemBuilder
@@ -264,7 +281,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* Set Time */
@@ -284,7 +301,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             val setNightItem = ItemBuilder
@@ -303,7 +320,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    gui.close(player)
+                    guiClose()
                 }
 
             /* Players GUI */
@@ -325,6 +342,8 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 }
 
             /* Items -> Commands */
+
+
             gui.setItem(10, creativeItem)
             gui.setItem(11, survivalItem)
             gui.setItem(12, spectatorItem)
@@ -348,7 +367,13 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
             gui.setItem(23, borderItem)
             gui.setItem(24, borderItem)
             gui.setItem(25, borderItem)
+            gui.setItem(30, borderItem)
+            gui.setItem(31, borderItem)
+            gui.setItem(32, borderItem)
             gui.setItem(33, borderItem)
+            gui.setItem(39, borderItem)
+            gui.setItem(40, borderItem)
+            gui.setItem(41, borderItem)
             gui.setItem(42, borderItem)
 
             if (player.hasPermission("advancedservermanager.admin")) {

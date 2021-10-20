@@ -24,11 +24,15 @@ abstract class Utils(val plugin: AdvancedServerManager) {
     }
 
     fun onButtonSound(player: Player) {
-        return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 20F, 0F)
+        if (plugin.config.getBoolean("SuccessfulSound")) {
+            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 20F, 0F)
+        }
     }
 
     fun errorButtonSound(player: Player) {
-        return player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
+        if (plugin.config.getBoolean("ErrorSound")) {
+            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 20F, 0F)
+        }
     }
 
     fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
