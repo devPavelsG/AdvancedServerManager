@@ -66,18 +66,22 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                     if (player.hasPermission("advancedservermanager.creative")) {
                         if (player.gameMode !== GameMode.CREATIVE) {
                             player.gameMode = GameMode.CREATIVE
-                            player.sendTitle(
-                                getGUIConfigMessage("CreativeTitle"),
-                                getGUIConfigMessage("CreativeSubtitleOn"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("CreativeTitle"),
+                                    getGUIConfigMessage("CreativeSubtitleOn"),
+                                    10, 60, 20
+                                )
+                            }
                         } else {
                             player.gameMode = GameMode.SURVIVAL
-                            player.sendTitle(
-                                getGUIConfigMessage("CreativeTitle"),
-                                getGUIConfigMessage("CreativeSubtitleOff"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("CreativeTitle"),
+                                    getGUIConfigMessage("CreativeSubtitleOff"),
+                                    10, 60, 20
+                                )
+                            }
                         }
                         onButtonSound(player)
                     } else {
@@ -95,18 +99,22 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                     if (player.hasPermission("advancedservermanager.survival")) {
                         if (player.gameMode !== GameMode.SURVIVAL) {
                             player.gameMode = GameMode.SURVIVAL
-                            player.sendTitle(
-                                getGUIConfigMessage("SurvivalTitle"),
-                                getGUIConfigMessage("SurvivalSubtitleOn"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("SurvivalTitle"),
+                                    getGUIConfigMessage("SurvivalSubtitleOn"),
+                                    10, 60, 20
+                                )
+                            }
                             onButtonSound(player)
                         } else {
-                            player.sendTitle(
-                                getGUIConfigMessage("SurvivalAlreadyOnTitle"),
-                                getGUIConfigMessage("SurvivalSubtitleOn"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("SurvivalAlreadyOnTitle"),
+                                    getGUIConfigMessage("SurvivalSubtitleOn"),
+                                    10, 60, 20
+                                )
+                            }
                             errorButtonSound(player)
                         }
                     } else {
@@ -124,19 +132,23 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                     if (player.hasPermission("advancedservermanager.spectator")) {
                         if (player.gameMode !== GameMode.SPECTATOR) {
                             player.gameMode = GameMode.SPECTATOR
-                            player.sendTitle(
-                                getGUIConfigMessage("SpectatorTitle"),
-                                getGUIConfigMessage("SpectatorSubtitleOn"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("SpectatorTitle"),
+                                    getGUIConfigMessage("SpectatorSubtitleOn"),
+                                    10, 60, 20
+                                )
+                            }
                         } else {
                             player.gameMode = GameMode.SURVIVAL
                             onButtonSound(player)
-                            player.sendTitle(
-                                getGUIConfigMessage("SpectatorTitle"),
-                                getGUIConfigMessage("SpectatorSubtitleOff"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("SpectatorTitle"),
+                                    getGUIConfigMessage("SpectatorSubtitleOff"),
+                                    10, 60, 20
+                                )
+                            }
                         }
                         onButtonSound(player)
                     } else {
@@ -156,27 +168,33 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             if (!player.isFlying && !player.allowFlight) {
                                 player.allowFlight = true
                                 player.isFlying = true
-                                player.sendTitle(
-                                    getGUIConfigMessage("FlyTitle"),
-                                    getGUIConfigMessage("FlySubtitleOn"),
-                                    10, 60, 20
-                                )
+                                if (plugin.config.getBoolean("GUISendTitle")) {
+                                    player.sendTitle(
+                                        getGUIConfigMessage("FlyTitle"),
+                                        getGUIConfigMessage("FlySubtitleOn"),
+                                        10, 60, 20
+                                    )
+                                }
                             } else {
                                 player.allowFlight = false
                                 player.isFlying = false
-                                player.sendTitle(
-                                    getGUIConfigMessage("FlyTitle"),
-                                    getGUIConfigMessage("FlySubtitleOff"),
-                                    10, 60, 20
-                                )
+                                if (plugin.config.getBoolean("GUISendTitle")) {
+                                    player.sendTitle(
+                                        getGUIConfigMessage("FlyTitle"),
+                                        getGUIConfigMessage("FlySubtitleOff"),
+                                        10, 60, 20
+                                    )
+                                }
                             }
                             onButtonSound(player)
                         } else {
-                            player.sendTitle(
-                                getGUIConfigMessage("FlyMustBeSurvivalTitle"),
-                                getGUIConfigMessage("FlyMustBeSurvivalSubtitle"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("FlyMustBeSurvivalTitle"),
+                                    getGUIConfigMessage("FlyMustBeSurvivalSubtitle"),
+                                    10, 60, 20
+                                )
+                            }
                             errorButtonSound(player)
                         }
                     } else {
@@ -195,26 +213,32 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         if (player.gameMode == GameMode.SURVIVAL) {
                             if (player.isInvulnerable) {
                                 player.isInvulnerable = false
-                                player.sendTitle(
-                                    getGUIConfigMessage("GodTitle"),
-                                    getGUIConfigMessage("GodSubtitleOff"),
-                                    10, 60, 20
-                                )
+                                if (plugin.config.getBoolean("GUISendTitle")) {
+                                    player.sendTitle(
+                                        getGUIConfigMessage("GodTitle"),
+                                        getGUIConfigMessage("GodSubtitleOff"),
+                                        10, 60, 20
+                                    )
+                                }
                             } else {
                                 player.isInvulnerable = true
-                                player.sendTitle(
-                                    getGUIConfigMessage("GodTitle"),
-                                    getGUIConfigMessage("GodSubtitleOn"),
-                                    10, 60, 20
-                                )
+                                if (plugin.config.getBoolean("GUISendTitle")) {
+                                    player.sendTitle(
+                                        getGUIConfigMessage("GodTitle"),
+                                        getGUIConfigMessage("GodSubtitleOn"),
+                                        10, 60, 20
+                                    )
+                                }
                             }
                             onButtonSound(player)
                         } else {
-                            player.sendTitle(
-                                getGUIConfigMessage("GodMustBeSurvivalTitle"),
-                                getGUIConfigMessage("GodMustBeSurvivalSubtitle"),
-                                10, 60, 20
-                            )
+                            if (plugin.config.getBoolean("GUISendTitle")) {
+                                player.sendTitle(
+                                    getGUIConfigMessage("GodMustBeSurvivalTitle"),
+                                    getGUIConfigMessage("GodMustBeSurvivalSubtitle"),
+                                    10, 60, 20
+                                )
+                            }
                             errorButtonSound(player)
                         }
                     } else {
@@ -232,11 +256,13 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                     if (player.hasPermission("advancedservermanager.feedheal")) {
                         player.health = 20.0
                         player.foodLevel = 20
-                        player.sendTitle(
-                            getGUIConfigMessage("FeedHealTitle"),
-                            getGUIConfigMessage("FeedHealSubtitle"),
-                            10, 60, 20
-                        )
+                        if (plugin.config.getBoolean("GUISendTitle")) {
+                            player.sendTitle(
+                                getGUIConfigMessage("FeedHealTitle"),
+                                getGUIConfigMessage("FeedHealSubtitle"),
+                                10, 60, 20
+                            )
+                        }
                         onButtonSound(player)
                     } else {
                         errorButtonSound(player)
@@ -251,11 +277,13 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.weather")) {
                         getOverWorld()?.clearWeatherDuration = ((0..599).random()) * 20
-                        player.sendTitle(
-                            getGUIConfigMessage("ClearWeatherTitle"),
-                            getGUIConfigMessage("ClearWeatherSubtitle"),
-                            10, 60, 20
-                        )
+                        if (plugin.config.getBoolean("GUISendTitle")) {
+                            player.sendTitle(
+                                getGUIConfigMessage("ClearWeatherTitle"),
+                                getGUIConfigMessage("ClearWeatherSubtitle"),
+                                10, 60, 20
+                            )
+                        }
                         onButtonSound(player)
                     } else {
                         errorButtonSound(player)
@@ -271,11 +299,13 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.weather")) {
                         getOverWorld()?.setStorm(true)
-                        player.sendTitle(
-                            getGUIConfigMessage("RainWeatherTitle"),
-                            getGUIConfigMessage("RainWeatherSubtitle"),
-                            10, 60, 20
-                        )
+                        if (plugin.config.getBoolean("GUISendTitle")) {
+                            player.sendTitle(
+                                getGUIConfigMessage("RainWeatherTitle"),
+                                getGUIConfigMessage("RainWeatherSubtitle"),
+                                10, 60, 20
+                            )
+                        }
                         onButtonSound(player)
                     } else {
                         errorButtonSound(player)
@@ -291,11 +321,13 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.time")) {
                         getOverWorld()?.time = 1000
-                        player.sendTitle(
-                            getGUIConfigMessage("DayTitle"),
-                            getGUIConfigMessage("DaySubtitle"),
-                            10, 60, 20
-                        )
+                        if (plugin.config.getBoolean("GUISendTitle")) {
+                            player.sendTitle(
+                                getGUIConfigMessage("DayTitle"),
+                                getGUIConfigMessage("DaySubtitle"),
+                                10, 60, 20
+                            )
+                        }
                         onButtonSound(player)
                     } else {
                         errorButtonSound(player)
@@ -310,11 +342,13 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.time")) {
                         getOverWorld()?.time = 18000
-                        player.sendTitle(
-                            getGUIConfigMessage("NightTitle"),
-                            getGUIConfigMessage("NightSubtitle"),
-                            10, 60, 20
-                        )
+                        if (plugin.config.getBoolean("GUISendTitle")) {
+                            player.sendTitle(
+                                getGUIConfigMessage("NightTitle"),
+                                getGUIConfigMessage("NightSubtitle"),
+                                10, 60, 20
+                            )
+                        }
                         onButtonSound(player)
                     } else {
                         errorButtonSound(player)

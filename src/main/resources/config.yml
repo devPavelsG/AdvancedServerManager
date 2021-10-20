@@ -4,6 +4,7 @@
 # Configuration #
 
 GUIAutoClose: false
+GUISendTitle: false
 ErrorSound: true
 SuccessfulSound: true
 
