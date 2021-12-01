@@ -1,4 +1,4 @@
-package me.pavelsgarklavs.advancedservermanager.Listeners
+package me.pavelsgarklavs.advancedservermanager.listeners
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import org.bukkit.entity.Player

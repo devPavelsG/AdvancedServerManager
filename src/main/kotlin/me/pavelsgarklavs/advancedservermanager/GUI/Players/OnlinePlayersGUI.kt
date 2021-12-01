@@ -4,7 +4,7 @@ import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import dev.triumphteam.gui.guis.PaginatedGui
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
-import me.pavelsgarklavs.advancedservermanager.Listeners.AnvilGUIClickListener
+import me.pavelsgarklavs.advancedservermanager.listeners.AnvilGUIClickListener
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
