@@ -363,7 +363,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .name(Component.text("Online Players", NamedTextColor.GOLD, TextDecoration.BOLD))
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.players")) {
-                        OnlinePlayersGUI(plugin).open(player)
+                        OnlinePlayersGUI(plugin, player).open(player)
                     }
                 }
             val offlinePlayersGUIItem = ItemBuilder
