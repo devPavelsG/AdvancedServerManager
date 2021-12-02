@@ -1,29 +1,44 @@
 package me.pavelsgarklavs.advancedservermanager.GUI.Players
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
-import me.pavelsgarklavs.advancedservermanager.utilities.Utils
+import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.event.inventory.InventoryType
-import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-class SearchGUI(plugin: AdvancedServerManager) : Utils(plugin) {
+class SearchGUI(plugin: AdvancedServerManager) {
+    private val selectedPlayerGUI: SelectedPlayerGUI = SelectedPlayerGUI(plugin)
+    var exists = false
+    var existsPlayerObject: Player? = null
 
-    fun createSearchGUI(player: Player) {
-        val searchGui: Inventory =
-            Bukkit.getServer().createInventory(null, InventoryType.ANVIL, "Enter player name:")
+    fun createSearchGUI(sender: Player, plugin: AdvancedServerManager) {
+        AnvilGUI.Builder()
+            .onClose {
+                if (exists && existsPlayerObject != null) {
+                    selectedPlayerGUI.createSelectedPlayerGUI(sender, existsPlayerObject!!)
+                }
+            }
+            .onComplete { _: Player, text: String ->
+                for (username in Bukkit.getOnlinePlayers()) {
+                    if (text.equals("Name: ${username.name}", ignoreCase = true)) {
+                        exists = true
+                        existsPlayerObject = username
+                    }
+                }
+                if (exists) {
+                    return@onComplete AnvilGUI.Response.close()
+                } else {
+                    return@onComplete AnvilGUI.Response.close()
+                }
 
-        val paperItem = ItemStack(Material.PAPER, 1)
-        val im = paperItem.itemMeta
-        im!!.setDisplayName("Search: ")
-        paperItem.itemMeta = im
 
-        searchGui.setItem(0, paperItem)
-
-        player.openInventory(searchGui)
+            }
+            .preventClose()
+            .text("Name: ")
+            .itemLeft(ItemStack(Material.PAPER))
+            .title("Search for a player")
+            .plugin(plugin)
+            .open(sender)
     }
-
-
 }
