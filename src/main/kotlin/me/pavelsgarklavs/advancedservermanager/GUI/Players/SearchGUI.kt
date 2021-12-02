@@ -20,10 +20,10 @@ class SearchGUI(plugin: AdvancedServerManager) {
                 }
             }
             .onComplete { _: Player, text: String ->
-                for (username in Bukkit.getOnlinePlayers()) {
-                    if (text.equals("Name: ${username.name}", ignoreCase = true)) {
+                for (player in Bukkit.getOnlinePlayers()) {
+                    if (text.equals("Name: ${player.name}", ignoreCase = true)) {
                         exists = true
-                        existsPlayerObject = username
+                        existsPlayerObject = player
                     }
                 }
                 if (exists) {

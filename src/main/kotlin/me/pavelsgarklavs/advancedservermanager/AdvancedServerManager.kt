@@ -19,7 +19,7 @@ class AdvancedServerManager : JavaPlugin() {
     private val homeCommand: HomeCommand = HomeCommand(this)
 
     override fun onEnable() {
-        println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Fox\u001b[0m")
+        println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Pavels\u001b[0m")
 
         getCommand("admin")?.setExecutor(mainGui)
         getCommand("gm")?.setExecutor(gamemodeCommand)
