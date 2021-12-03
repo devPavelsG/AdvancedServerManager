@@ -25,7 +25,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
 
         fun guiClose() {
             if (plugin.config.getBoolean("GUIAutoClose")) {
-                selectedPlayer.close(player)
+                selectedPlayer.close(sender)
             }
         }
 
@@ -60,8 +60,8 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 .from(Material.BARRIER)
                 .name(Component.text("Close GUI", NamedTextColor.RED, TextDecoration.BOLD))
                 .asGuiItem {
-                    selectedPlayer.close(player)
-                    onButtonSound(player)
+                    selectedPlayer.close(sender)
+                    onButtonSound(sender)
                 }
             selectedPlayer.setItem(49, closeButton)
         }
@@ -74,7 +74,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 if (player.gameMode !== GameMode.CREATIVE) {
                     player.gameMode = GameMode.CREATIVE
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("CreativeTitle"),
                             getGUIConfigMessage("CreativeSubtitleOn"),
                             10, 60, 20
@@ -83,14 +83,14 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 } else {
                     player.gameMode = GameMode.SURVIVAL
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("CreativeTitle"),
                             getGUIConfigMessage("CreativeSubtitleOff"),
                             10, 60, 20
                         )
                     }
                 }
-                onButtonSound(player)
+                onButtonSound(sender)
                 guiClose()
             }
 
@@ -102,22 +102,22 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 if (player.gameMode !== GameMode.SURVIVAL) {
                     player.gameMode = GameMode.SURVIVAL
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("SurvivalTitle"),
                             getGUIConfigMessage("SurvivalSubtitleOn"),
                             10, 60, 20
                         )
                     }
-                    onButtonSound(player)
+                    onButtonSound(sender)
                 } else {
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("SurvivalAlreadyOnTitle"),
                             getGUIConfigMessage("SurvivalSubtitleOn"),
                             10, 60, 20
                         )
                     }
-                    errorButtonSound(player)
+                    errorButtonSound(sender)
                 }
                 guiClose()
             }
@@ -130,7 +130,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 if (player.gameMode !== GameMode.SPECTATOR) {
                     player.gameMode = GameMode.SPECTATOR
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("SpectatorTitle"),
                             getGUIConfigMessage("SpectatorSubtitleOn"),
                             10, 60, 20
@@ -138,16 +138,15 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                     }
                 } else {
                     player.gameMode = GameMode.SURVIVAL
-                    onButtonSound(player)
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("SpectatorTitle"),
                             getGUIConfigMessage("SpectatorSubtitleOff"),
                             10, 60, 20
                         )
                     }
                 }
-                onButtonSound(player)
+                onButtonSound(sender)
                 guiClose()
             }
 
@@ -161,7 +160,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                         player.allowFlight = true
                         player.isFlying = true
                         if (plugin.config.getBoolean("GUISendTitle")) {
-                            player.sendTitle(
+                            sender.sendTitle(
                                 getGUIConfigMessage("FlyTitle"),
                                 getGUIConfigMessage("FlySubtitleOn"),
                                 10, 60, 20
@@ -171,23 +170,23 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                         player.allowFlight = false
                         player.isFlying = false
                         if (plugin.config.getBoolean("GUISendTitle")) {
-                            player.sendTitle(
+                            sender.sendTitle(
                                 getGUIConfigMessage("FlyTitle"),
                                 getGUIConfigMessage("FlySubtitleOff"),
                                 10, 60, 20
                             )
                         }
                     }
-                    onButtonSound(player)
+                    onButtonSound(sender)
                 } else {
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("FlyMustBeSurvivalTitle"),
                             getGUIConfigMessage("FlyMustBeSurvivalSubtitle"),
                             10, 60, 20
                         )
                     }
-                    errorButtonSound(player)
+                    errorButtonSound(sender)
                 }
                 guiClose()
             }
@@ -201,7 +200,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                     if (player.isInvulnerable) {
                         player.isInvulnerable = false
                         if (plugin.config.getBoolean("GUISendTitle")) {
-                            player.sendTitle(
+                            sender.sendTitle(
                                 getGUIConfigMessage("GodTitle"),
                                 getGUIConfigMessage("GodSubtitleOff"),
                                 10, 60, 20
@@ -210,23 +209,23 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                     } else {
                         player.isInvulnerable = true
                         if (plugin.config.getBoolean("GUISendTitle")) {
-                            player.sendTitle(
+                            sender.sendTitle(
                                 getGUIConfigMessage("GodTitle"),
                                 getGUIConfigMessage("GodSubtitleOn"),
                                 10, 60, 20
                             )
                         }
                     }
-                    onButtonSound(player)
+                    onButtonSound(sender)
                 } else {
                     if (plugin.config.getBoolean("GUISendTitle")) {
-                        player.sendTitle(
+                        sender.sendTitle(
                             getGUIConfigMessage("GodMustBeSurvivalTitle"),
                             getGUIConfigMessage("GodMustBeSurvivalSubtitle"),
                             10, 60, 20
                         )
                     }
-                    errorButtonSound(player)
+                    errorButtonSound(sender)
                 }
                 guiClose()
             }
@@ -239,19 +238,19 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 player.health = 20.0
                 player.foodLevel = 20
                 if (plugin.config.getBoolean("GUISendTitle")) {
-                    player.sendTitle(
+                    sender.sendTitle(
                         getGUIConfigMessage("FeedHealTitle"),
                         getGUIConfigMessage("FeedHealSubtitle"),
                         10, 60, 20
                     )
                 }
-                onButtonSound(player)
+                onButtonSound(sender)
                 guiClose()
             }
 
         /* Home */
         val homeItem = ItemBuilder
-            .from(Material.ENDER_EYE)
+            .from(Material.BLAZE_POWDER)
             .name(Component.text("Home", NamedTextColor.DARK_GREEN, TextDecoration.BOLD))
             .asGuiItem {
                 try {
@@ -271,7 +270,14 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                         world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble(),
                         (yaw as Double).toFloat(), (pitch as Double).toFloat()
                     )
-
+                    if (plugin.config.getBoolean("GUISendTitle")) {
+                        sender.sendTitle(
+                            getGUIConfigMessage("HomeTitle"),
+                            getGUIConfigMessage("HomeSubtitle"),
+                            10, 60, 20
+                        )
+                    }
+                    onButtonSound(sender)
                     sender.teleport(loc)
 
                 } catch (e: NullPointerException) {
@@ -283,7 +289,41 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                         val message = getConfigMessage("HomeDoesNotExistOthers")
                         sender.sendMessage(message)
                     }
+                    errorButtonSound(sender)
                 }
+                guiClose()
+            }
+
+        /* Teleport */
+        val teleportItem = ItemBuilder
+            .from(Material.ENDER_EYE)
+            .name(Component.text("Teleport to player", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD))
+            .asGuiItem {
+                sender.teleport(player.location)
+                if (plugin.config.getBoolean("GUISendTitle")) {
+                    sender.sendTitle(
+                        getGUIConfigMessage("TeleportTitle"),
+                        getGUIConfigMessage("TeleportSubtitle"),
+                        10, 60, 20
+                    )
+                }
+                onButtonSound(sender)
+            }
+
+        /* Teleport here */
+        val teleportHereItem = ItemBuilder
+            .from(Material.ENDER_PEARL)
+            .name(Component.text("Teleport player here", NamedTextColor.DARK_BLUE, TextDecoration.BOLD))
+            .asGuiItem {
+                player.teleport(sender.location)
+                if (plugin.config.getBoolean("GUISendTitle")) {
+                    sender.sendTitle(
+                        getGUIConfigMessage("TeleportHereTitle"),
+                        getGUIConfigMessage("TeleportHereSubtitle"),
+                        10, 60, 20
+                    )
+                }
+                onButtonSound(sender)
             }
 
         selectedPlayer.setItem(10, creativeItem)
@@ -293,6 +333,8 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
         selectedPlayer.setItem(15, godItem)
         selectedPlayer.setItem(16, feedHealItem)
         selectedPlayer.setItem(28, homeItem)
+        selectedPlayer.setItem(34, teleportItem)
+        selectedPlayer.setItem(43, teleportHereItem)
 
         selectedPlayer.open(sender)
     }

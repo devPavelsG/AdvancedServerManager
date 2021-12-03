@@ -99,3 +99,12 @@ DaySubtitle: ""
 
 NightTitle: "&8Time to slay some monsters!"
 NightSubtitle: ""
+
+HomeTitle: "&6You went player's home!"
+HomeSubtitle: ""
+
+TeleportTitle: "&6You teleported to the player!"
+TeleportSubtitle: ""
+
+TeleportHereTitle: "&6You teleported player here!"
+TeleportHereSubtitle: ""
