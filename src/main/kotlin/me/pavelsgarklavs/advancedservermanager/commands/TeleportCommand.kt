@@ -63,7 +63,7 @@ class TeleportCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                 })
             }, true)
             return true
-        }  else if (args.size >= 3) {
+        } else if (args.size >= 3) {
             sender.sendMessage(getConfigMessage("ErrorArguments"))
         } else {
             sender.sendMessage(getConfigMessage("AdditionalArgument"))

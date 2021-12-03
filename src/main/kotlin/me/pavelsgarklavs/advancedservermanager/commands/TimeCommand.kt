@@ -31,7 +31,7 @@ class TimeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                 return true
             } else if (args.size == 1 && args[0].contains("-")) {
                 sender.sendMessage(getConfigMessage("UnknownTime"))
-            }  else if (args.size >= 2) {
+            } else if (args.size >= 2) {
                 sender.sendMessage(getConfigMessage("ErrorArguments"))
             } else {
                 sender.sendMessage(getConfigMessage("AdditionalArgument"))
