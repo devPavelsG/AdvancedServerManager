@@ -7,6 +7,7 @@ GUIAutoClose: false
 GUISendTitle: false
 ErrorSound: true
 SuccessfulSound: true
+TeleportTimer: 3000
 
 # Messages #
 
@@ -15,10 +16,12 @@ Prefix: "&7[&4ASM&7]"
 Permissions: "&4You don't have permissions to use this command!"
 MustBePlayer: "&4You must be a player to use this command!"
 OfflineOrDoesNotExist: "&4Player is offline or does not exist!"
+OtherPlayerIsNotOnlineOrDoesNotExist: "&4Other player is not online or does not exist!"
 UnknownGamemode: "&4Unknown gamemode!"
 UnknownWeather: "&4Unknown weather!"
 UnknownTime: "&4Unknown time!"
 SomethingWentWrong: "&4Something went wrong!"
+AdditionalArgument: "&4Please provide additional argument for the command!"
 
 FlyOn: "&6Fly Turned &2ON"
 FlyOff: "&6Fly Turned &4OFF"
@@ -49,6 +52,9 @@ GoHome: "&6You teleported to home!"
 GoHomePlayers: "&6You teleported to &2%player_name% &6home!"
 HomeDoesNotExist: "&4Home does not exist!"
 HomeDoesNotExistOthers: "&6%player_name% &4home does not exist!"
+
+TeleportTo: "&6You teleported to %player_name%!"
+TeleportOther: "&6You teleported %player_name% to %player_name_other%!"
 
 # GUI TITLE MESSAGES #
 

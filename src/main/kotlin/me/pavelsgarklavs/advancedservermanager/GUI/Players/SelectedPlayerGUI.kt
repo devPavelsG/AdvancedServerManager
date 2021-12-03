@@ -7,9 +7,13 @@ import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
+import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
+import java.io.File
 
 class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
     fun createSelectedPlayerGUI(sender: Player, player: Player) {
@@ -245,12 +249,50 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 guiClose()
             }
 
+        /* Home */
+        val homeItem = ItemBuilder
+            .from(Material.ENDER_EYE)
+            .name(Component.text("Home", NamedTextColor.DARK_GREEN, TextDecoration.BOLD))
+            .asGuiItem {
+                try {
+                    val playerUUID = player.uniqueId.toString()
+                    val file = File(plugin.dataFolder, "homes.yml")
+                    val homes = YamlConfiguration.loadConfiguration(file)
+
+                    val x = homes.get("$playerUUID.x")
+                    val y = homes.get("$playerUUID.y")
+                    val z = homes.get("$playerUUID.z")
+                    val pitch = homes.get("$playerUUID.pitch")
+                    val yaw = homes.get("$playerUUID.yaw")
+                    val playerWorld = homes.get("$playerUUID.world")
+
+                    val world = Bukkit.getServer().getWorld(playerWorld.toString())
+                    val loc = Location(
+                        world, (x as Int).toDouble(), (y as Int).toDouble(), (z as Int).toDouble(),
+                        (yaw as Double).toFloat(), (pitch as Double).toFloat()
+                    )
+
+                    sender.teleport(loc)
+
+                } catch (e: NullPointerException) {
+                    selectedPlayer.close(sender)
+                    if (getConfigMessage("HomeDoesNotExistOthers").contains("%player_name%")) {
+                        val message = getConfigMessage("HomeDoesNotExistOthers").replace("%player_name%", player.name)
+                        sender.sendMessage(message)
+                    } else {
+                        val message = getConfigMessage("HomeDoesNotExistOthers")
+                        sender.sendMessage(message)
+                    }
+                }
+            }
+
         selectedPlayer.setItem(10, creativeItem)
         selectedPlayer.setItem(11, survivalItem)
         selectedPlayer.setItem(12, spectatorItem)
         selectedPlayer.setItem(14, flyItem)
         selectedPlayer.setItem(15, godItem)
         selectedPlayer.setItem(16, feedHealItem)
+        selectedPlayer.setItem(28, homeItem)
 
         selectedPlayer.open(sender)
     }

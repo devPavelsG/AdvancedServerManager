@@ -40,3 +40,6 @@ commands:
   sethome:
     description: Go home
     usage: /<command>
+  tp:
+    description: Teleport to player or player to you
+    usage: /<command> [player] [Optional - to who teleport]

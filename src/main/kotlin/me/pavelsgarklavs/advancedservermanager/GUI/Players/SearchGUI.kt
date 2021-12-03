@@ -1,13 +1,14 @@
 package me.pavelsgarklavs.advancedservermanager.GUI.Players
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-class SearchGUI(plugin: AdvancedServerManager) {
+class SearchGUI(plugin: AdvancedServerManager) : Utils(plugin) {
     private val selectedPlayerGUI: SelectedPlayerGUI = SelectedPlayerGUI(plugin)
     var exists = false
     var existsPlayerObject: Player? = null
@@ -17,6 +18,9 @@ class SearchGUI(plugin: AdvancedServerManager) {
             .onClose {
                 if (exists && existsPlayerObject != null) {
                     selectedPlayerGUI.createSelectedPlayerGUI(sender, existsPlayerObject!!)
+                } else {
+                    val message = getConfigMessage("OfflineOrDoesNotExist")
+                    sender.sendMessage(message)
                 }
             }
             .onComplete { _: Player, text: String ->
@@ -31,8 +35,6 @@ class SearchGUI(plugin: AdvancedServerManager) {
                 } else {
                     return@onComplete AnvilGUI.Response.close()
                 }
-
-
             }
             .preventClose()
             .text("Name: ")

@@ -40,7 +40,6 @@ dependencies {
     implementation('net.kyori:adventure-text-serializer-legacy:4.9.3')
     implementation "dev.triumphteam:triumph-gui:3.0.3"
     implementation "net.wesjd:anvilgui:1.5.3-SNAPSHOT"
-//    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
 }
 shadowJar {
     relocate("kotlin", "me.pavelsgarklavs.kotlin")

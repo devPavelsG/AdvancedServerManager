@@ -75,7 +75,7 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     if (getConfigMessage("HomeDoesNotExistOthers").contains("%player_name%")) {
                         val message = getConfigMessage("HomeDoesNotExistOthers").replace("%player_name%", args[0])
                         sender.sendMessage(message)
-                    } else sender.sendMessage(getConfigMessage("SomethingWentWrong"))
+                    } else sender.sendMessage(getConfigMessage("HomeDoesNotExistOthers"))
                 }
             }, true)
             return true
