@@ -34,7 +34,8 @@ GodModeOffPlayer: "&6God Mode Turned &4OFF &6for the player!"
 
 Feed: "&6Server fed you!"
 FeedOthers: "&6Server fed %player_name%!"
-Heal: "&6Server healed you/player!"
+Heal: "&6Server healed you!"
+HealOthers: "&6Server healed %player_name%!"
 
 Creative: "&6Gamemode changed to Creative mode!"
 Survival: "&6Gamemode changed to Survival mode!"

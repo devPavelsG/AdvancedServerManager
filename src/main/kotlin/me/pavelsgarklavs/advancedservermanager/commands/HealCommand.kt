@@ -22,7 +22,12 @@ class HealCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
             ifPermissible(sender, "advancedservermanager.heal.players", {
                 getOnlinePlayer(args[0]).ifPresentOrElse({
                     it.health = 20.0
-                    sender.sendMessage(getConfigMessage("Heal"))
+                    if (getConfigMessage("HealOthers").contains("%player_name%")) {
+                        val message = getConfigMessage("HealOthers").replace("%player_name%", args[0])
+                        sender.sendMessage(message)
+                    } else {
+                        sender.sendMessage(getConfigMessage("HealOthers"))
+                    }
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
