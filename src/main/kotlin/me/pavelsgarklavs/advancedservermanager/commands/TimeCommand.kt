@@ -16,6 +16,7 @@ class TimeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     getOverWorld()?.time = 1000
                     sender.sendMessage(getConfigMessage("DayTimeCommand"))
                 }, false)
+                return true
             } else if (args.size == 1 && args[0].equals("night", ignoreCase = true)) {
                 ifPermissible(sender, "advancedservermanager.time", {
                     getOverWorld()?.time = 18000
@@ -27,13 +28,18 @@ class TimeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     getOverWorld()?.time = args[0].toLong()
                     sender.sendMessage(getConfigMessage("NumberTimeCommand") + " ${ChatColor.GOLD}${args[0]}")
                 }, false)
+                return true
             } else if (args.size == 1 && args[0].contains("-")) {
                 sender.sendMessage(getConfigMessage("UnknownTime"))
+            }  else if (args.size >= 2) {
+                sender.sendMessage(getConfigMessage("ErrorArguments"))
+            } else {
+                sender.sendMessage(getConfigMessage("AdditionalArgument"))
             }
         } catch (e: NumberFormatException) {
             sender.sendMessage(getConfigMessage("UnknownTime"))
         }
-        return true
+        return false
     }
 
     override fun onTabComplete(

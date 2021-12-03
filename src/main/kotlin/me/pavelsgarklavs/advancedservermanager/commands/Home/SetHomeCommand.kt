@@ -38,6 +38,8 @@ class SetHomeCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plu
                 }
             }, true)
             return true
+        }  else {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
         }
         return true
     }

@@ -14,16 +14,19 @@ class WeatherCommand(plugin: AdvancedServerManager) : CommandExecutor, TabComple
                 getOverWorld()?.clearWeatherDuration = ((0..599).random()) * 20
                 sender.sendMessage(getConfigMessage("ClearWeatherCommand"))
             }, false)
+            return true
         } else if (args.size == 1 && args[0].equals("rain", ignoreCase = true)) {
             ifPermissible(sender, "advancedservermanager.weather", {
                 getOverWorld()?.setStorm(true)
                 sender.sendMessage(getConfigMessage("RainWeatherCommand"))
             }, false)
             return true
-        } else if (args.isEmpty() || args[0] != "clear" || args[0] != "rain") {
-            sender.sendMessage(getConfigMessage("UnknownWeather"))
+        } else if (args.size >= 2) {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
+        } else {
+            sender.sendMessage(getConfigMessage("AdditionalArgument"))
         }
-        return true
+        return false
     }
 
     override fun onTabComplete(

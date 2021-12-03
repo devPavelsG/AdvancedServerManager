@@ -86,6 +86,10 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                 sender.sendMessage(getConfigMessage("UnknownGamemode"))
             }
             return true
+        } else if (args.size >= 3) {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
+        } else {
+            sender.sendMessage(getConfigMessage("AdditionalArgument"))
         }
 
         return false

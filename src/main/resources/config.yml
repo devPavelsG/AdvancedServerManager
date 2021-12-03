@@ -7,7 +7,6 @@ GUIAutoClose: false
 GUISendTitle: false
 ErrorSound: true
 SuccessfulSound: true
-TeleportTimer: 3000
 
 # Messages #
 
@@ -22,6 +21,7 @@ UnknownWeather: "&4Unknown weather!"
 UnknownTime: "&4Unknown time!"
 SomethingWentWrong: "&4Something went wrong!"
 AdditionalArgument: "&4Please provide additional argument for the command!"
+ErrorArguments: "&4Wrong argument for the command or none needed!"
 
 FlyOn: "&6Fly Turned &2ON"
 FlyOff: "&6Fly Turned &4OFF"
@@ -32,7 +32,8 @@ GodModeOnPlayer: "&6God Mode Turned &2ON &6for the player!"
 GodModeOff: "&6God Mode Turned &4OFF"
 GodModeOffPlayer: "&6God Mode Turned &4OFF &6for the player!"
 
-Feed: "&6Server fed you/player!"
+Feed: "&6Server fed you!"
+FeedOthers: "&6Server fed %player_name%!"
 Heal: "&6Server healed you/player!"
 
 Creative: "&6Gamemode changed to Creative mode!"

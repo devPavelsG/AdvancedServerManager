@@ -36,6 +36,7 @@ class TeleportCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             }, true)
+            return true
         } else if (args.size == 2) {
             ifPermissible(sender, "advancedservermanager.tp.others", {
                 getOnlinePlayer(args[0]).ifPresentOrElse({
@@ -61,10 +62,13 @@ class TeleportCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             }, true)
+            return true
+        }  else if (args.size >= 3) {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
         } else {
             sender.sendMessage(getConfigMessage("AdditionalArgument"))
         }
-        return true
+        return false
     }
 
     override fun onTabComplete(

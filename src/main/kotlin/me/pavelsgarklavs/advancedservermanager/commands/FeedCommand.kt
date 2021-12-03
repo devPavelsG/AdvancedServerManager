@@ -22,12 +22,19 @@ class FeedCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
             ifPermissible(sender, "advancedservermanager.feed.players", {
                 getOnlinePlayer(args[0]).ifPresentOrElse({
                     it.foodLevel = 20
-                    sender.sendMessage(getConfigMessage("Feed"))
+                    if (getConfigMessage("FeedOthers").contains("%player_name%")) {
+                        val message = getConfigMessage("FeedOthers").replace("%player_name%", args[0])
+                        sender.sendMessage(message)
+                    } else {
+                        sender.sendMessage(getConfigMessage("FeedOthers"))
+                    }
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             }, false)
             return true
+        } else if (args.size >= 2) {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
         }
 
         return false

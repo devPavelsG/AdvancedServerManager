@@ -38,6 +38,8 @@ class GodCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                 })
             }, false)
             return true
+        }  else if (args.size >= 2) {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
         }
         return false
     }

@@ -2,7 +2,7 @@ name: AdvancedServerManager
 version: '${version}'
 main: me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 api-version: 1.17
-authors: [ Dev_Fox ]
+authors: [ Dev_Pavels ]
 description: Use Advanced Server Manager to eliminate frustration and control your server with ease
 website: pavelsgarklavs.me
 commands:
@@ -43,3 +43,6 @@ commands:
   tp:
     description: Teleport to player or player to you
     usage: /<command> [player] [Optional - to who teleport]
+    aliases:
+      - teleport
+      - tel
