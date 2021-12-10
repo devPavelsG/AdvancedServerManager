@@ -308,6 +308,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                     )
                 }
                 onButtonSound(sender)
+                guiClose()
             }
 
         /* Teleport here */
@@ -324,6 +325,7 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                     )
                 }
                 onButtonSound(sender)
+                guiClose()
             }
 
         selectedPlayer.setItem(10, creativeItem)

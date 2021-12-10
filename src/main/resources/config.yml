@@ -7,10 +7,12 @@ GUIAutoClose: false
 GUISendTitle: false
 ErrorSound: true
 SuccessfulSound: true
+StaffChatSymbol: "#"
 
 # Messages #
 
 Prefix: "&7[&4ASM&7]"
+StaffChatPrefix: "&4#[StaffChat]&7"
 
 Permissions: "&4You don't have permissions to use this command!"
 MustBePlayer: "&4You must be a player to use this command!"

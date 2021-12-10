@@ -4,6 +4,7 @@ import me.pavelsgarklavs.advancedservermanager.GUI.MainGUI
 import me.pavelsgarklavs.advancedservermanager.commands.*
 import me.pavelsgarklavs.advancedservermanager.commands.Home.HomeCommand
 import me.pavelsgarklavs.advancedservermanager.commands.Home.SetHomeCommand
+import me.pavelsgarklavs.advancedservermanager.listeners.StaffChatListener
 import org.bukkit.plugin.java.JavaPlugin
 
 class AdvancedServerManager : JavaPlugin() {
@@ -21,6 +22,8 @@ class AdvancedServerManager : JavaPlugin() {
 
     override fun onEnable() {
         println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Pavels\u001b[0m")
+
+        server.pluginManager.registerEvents(StaffChatListener(this), this)
 
         getCommand("admin")?.setExecutor(mainGui)
         getCommand("gm")?.setExecutor(gamemodeCommand)
