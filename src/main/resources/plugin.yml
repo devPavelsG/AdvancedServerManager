@@ -1,7 +1,7 @@
 name: AdvancedServerManager
 version: '${version}'
 main: me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
-api-version: 1.17
+api-version: 1.18
 authors: [ Dev_Pavels ]
 description: Use Advanced Server Manager to eliminate frustration and control your server with ease
 website: pavelsgarklavs.me
@@ -46,3 +46,8 @@ commands:
     aliases:
       - teleport
       - tel
+  bm:
+    description: Turn Build Mode on or off
+    usage: /<command>
+    aliases:
+      - buildmode

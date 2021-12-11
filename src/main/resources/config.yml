@@ -60,6 +60,11 @@ HomeDoesNotExistOthers: "&6%player_name% &4home does not exist!"
 TeleportTo: "&6You teleported to %player_name%!"
 TeleportOther: "&6You teleported %player_name% to %player_name_other%!"
 
+BuildModeWhenOn: "&6Switch Build mode off to break or place blocks!"
+BuildModeOn: "&6Build mode is on!"
+BuildModeOff: "&6Build mode is off!"
+BuildModeWhenNotCreative: "&6You must be in creative mode to switch build mode!"
+
 # GUI TITLE MESSAGES #
 
 CreativeTitle: "&6Creative Mode"
