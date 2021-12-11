@@ -1,18 +1,18 @@
-# Advanced Admin GUI Config #
+# Advanced Server Manager Config #
 # Author: Dev_Pavels #
 
-# Configuration #
+# GUI Configuration #
 
 GUIAutoClose: false
 GUISendTitle: false
 ErrorSound: true
 SuccessfulSound: true
-StaffChatSymbol: "#"
 
 # Messages #
 
 Prefix: "&7[&4ASM&7]"
-StaffChatPrefix: "&4#[StaffChat]&7"
+StaffChatSymbol: "#"
+StaffChatPrefix: "&4[StaffChat]&7"
 
 Permissions: "&4You don't have permissions to use this command!"
 MustBePlayer: "&4You must be a player to use this command!"
@@ -64,6 +64,9 @@ BuildModeWhenOn: "&6Switch Build mode off to break or place blocks!"
 BuildModeOn: "&6Build mode is on!"
 BuildModeOff: "&6Build mode is off!"
 BuildModeWhenNotCreative: "&6You must be in creative mode to switch build mode!"
+
+VanishOn: "&6Vanish on!"
+VanishOff: "&6Vanish off!"
 
 # GUI TITLE MESSAGES #
 

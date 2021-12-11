@@ -21,6 +21,7 @@ class AdvancedServerManager : JavaPlugin() {
     private val homeCommand: HomeCommand = HomeCommand(this)
     private val teleportCommand: TeleportCommand = TeleportCommand(this)
     private val buildModeCommand: BuildModeCommand = BuildModeCommand(this)
+    private val vanishCommand: VanishCommand = VanishCommand(this)
 
     override fun onEnable() {
         println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Pavels\u001b[0m")
@@ -40,6 +41,7 @@ class AdvancedServerManager : JavaPlugin() {
         getCommand("home")?.setExecutor(homeCommand)
         getCommand("tp")?.setExecutor(teleportCommand)
         getCommand("bm")?.setExecutor(buildModeCommand)
+        getCommand("vanish")?.setExecutor(vanishCommand)
 
         config.options().copyDefaults()
         saveDefaultConfig()

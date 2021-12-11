@@ -1,7 +1,10 @@
 package me.pavelsgarklavs.advancedservermanager.utilities
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
-import org.bukkit.*
+import org.bukkit.Bukkit
+import org.bukkit.ChatColor
+import org.bukkit.Sound
+import org.bukkit.World
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.*
@@ -35,12 +38,12 @@ abstract class Utils(val plugin: AdvancedServerManager) {
         }
     }
 
-    fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
-        for (player in Bukkit.getOfflinePlayers()) {
-            if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
-        }
-        return Optional.empty()
-    }
+//    fun getOfflinePlayer(name: String): Optional<OfflinePlayer> {
+//        for (player in Bukkit.getOfflinePlayers()) {
+//            if (player.name.equals(name, ignoreCase = true)) return Optional.of(player)
+//        }
+//        return Optional.empty()
+//    }
 
     fun getOnlinePlayer(name: String): Optional<Player> {
         for (player in Bukkit.getOnlinePlayers()) {

@@ -51,3 +51,6 @@ commands:
     usage: /<command>
     aliases:
       - buildmode
+  vanish:
+    description: Hide from other players
+    usage: /<command>

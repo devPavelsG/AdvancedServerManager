@@ -26,7 +26,7 @@ class BuildModeCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(p
                         config.set("$playerUUID.buildmode", true)
                     }
 
-                    val isInBuildMode = config.get("$playerUUID.buildmode") as Boolean
+                    val isInBuildMode = config.getBoolean("$playerUUID.buildmode")
 
                     if (isInBuildMode && player.gameMode == GameMode.CREATIVE) {
                         player.sendMessage(getConfigMessage("BuildModeOff"))
