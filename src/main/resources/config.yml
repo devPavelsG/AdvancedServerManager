@@ -3,8 +3,8 @@
 
 # GUI Configuration #
 
-GUIAutoClose: false
-GUISendTitle: false
+GUIAutoClose: true
+GUISendTitle: true
 ErrorSound: true
 SuccessfulSound: true
 
@@ -118,3 +118,7 @@ TeleportSubtitle: ""
 
 TeleportHereTitle: "&6You teleported player here!"
 TeleportHereSubtitle: ""
+
+VanishTitle: "&6Vanish!"
+VanishOnSubtitle: "&2&lON"
+VanishOffSubtitle: "&4&lOFF"

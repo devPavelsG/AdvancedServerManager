@@ -1,5 +1,6 @@
 package me.pavelsgarklavs.advancedservermanager.utilities
 
+import dev.triumphteam.gui.guis.Gui
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -58,6 +59,12 @@ abstract class Utils(val plugin: AdvancedServerManager) {
         val message = plugin.config.getString(path)
             ?.let { ChatColor.translateAlternateColorCodes('&', it) }
         return if (prefix?.isEmpty() == true) message.toString() else "$prefix $message"
+    }
+
+    fun guiClose(gui: Gui, player: Player) {
+        if (plugin.config.getBoolean("GUIAutoClose")) {
+            gui.close(player)
+        }
     }
 
     fun ifPermissible(sender: CommandSender, permission: String, action: Runnable, mustBePlayer: Boolean = false) {

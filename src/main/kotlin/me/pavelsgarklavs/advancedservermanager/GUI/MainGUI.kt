@@ -9,13 +9,16 @@ import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
+import java.io.File
 
 class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
 
@@ -52,11 +55,6 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                     }
                 gui.setItem(49, closeButton)
             }
-            fun guiClose() {
-                if (plugin.config.getBoolean("GUIAutoClose")) {
-                    gui.close(player)
-                }
-            }
 
             /* Creative Mode */
             val creativeItem = ItemBuilder
@@ -88,7 +86,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             /* Survival Mode */
@@ -121,7 +119,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         player.sendMessage(getConfigMessage("Permissions"))
                         errorButtonSound(player)
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             /* Spectator Mode */
@@ -155,7 +153,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             /* Fly */
@@ -201,7 +199,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         player.sendMessage(getConfigMessage("Permissions"))
                         errorButtonSound(player)
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             /* God Mode */
@@ -245,7 +243,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         player.sendMessage(getConfigMessage("Permissions"))
                         errorButtonSound(player)
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             /* Feed/Heal */
@@ -268,7 +266,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
             /* Weather */
             val clearWeatherItem = ItemBuilder
@@ -289,7 +287,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             val rainWeatherItem = ItemBuilder
@@ -311,7 +309,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             /* Set Time */
@@ -333,7 +331,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
                 }
 
             val setNightItem = ItemBuilder
@@ -354,7 +352,62 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                         errorButtonSound(player)
                         player.sendMessage(getConfigMessage("Permissions"))
                     }
-                    guiClose()
+                    guiClose(gui, player)
+                }
+
+            /* Vanish */
+
+            val vanishItem = ItemBuilder
+                .from(Material.AMETHYST_SHARD)
+                .name(Component.text("Vanish", NamedTextColor.DARK_GRAY, TextDecoration.BOLD))
+                .asGuiItem {
+                    ifPermissible(player, "advancedservermanager.vanish", {
+                        try {
+                            val playerUUID = player.uniqueId.toString()
+                            val file = File(plugin.dataFolder, "players.yml")
+                            if (!file.exists()) {
+                                file.createNewFile()
+                            }
+                            val config = YamlConfiguration.loadConfiguration(file)
+                            if (!config.contains(playerUUID)) {
+                                config.set("$playerUUID.vanish", true)
+                            }
+
+                            val isVanish = config.getBoolean("$playerUUID.vanish")
+
+                            if (isVanish) {
+                                for (allPlayers in Bukkit.getOnlinePlayers()) {
+                                    allPlayers.hidePlayer(plugin, player)
+                                }
+                                config.set("$playerUUID.vanish", false)
+                                if (plugin.config.getBoolean("GUISendTitle")) {
+                                    player.sendTitle(
+                                        getGUIConfigMessage("VanishTitle"),
+                                        getGUIConfigMessage("VanishOnSubtitle"),
+                                        10, 60, 20
+                                    )
+                                }
+                            } else {
+                                for (allPlayers in Bukkit.getOnlinePlayers()) {
+                                    allPlayers.showPlayer(plugin, player)
+                                }
+                                config.set("$playerUUID.vanish", true)
+                                if (plugin.config.getBoolean("GUISendTitle")) {
+                                    player.sendTitle(
+                                        getGUIConfigMessage("VanishTitle"),
+                                        getGUIConfigMessage("VanishOffSubtitle"),
+                                        10, 60, 20
+                                    )
+                                }
+                            }
+                            onButtonSound(player)
+                            config.save(file)
+                            guiClose(gui, player)
+                        } catch (e: Exception) {
+                            errorButtonSound(player)
+                            println(e.printStackTrace())
+                        }
+                    }, true)
                 }
 
             /* Players GUI */
@@ -381,6 +434,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
             gui.setItem(10, creativeItem)
             gui.setItem(11, survivalItem)
             gui.setItem(12, spectatorItem)
+            gui.setItem(13, vanishItem)
             gui.setItem(14, flyItem)
             gui.setItem(15, godItem)
             gui.setItem(16, feedHealItem)
@@ -393,7 +447,6 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
 
 
             /* Specific Borders */
-            gui.setItem(13, borderItem)
             gui.setItem(19, borderItem)
             gui.setItem(20, borderItem)
             gui.setItem(21, borderItem)
