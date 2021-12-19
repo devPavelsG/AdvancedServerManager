@@ -8,6 +8,10 @@ GUISendTitle: true
 ErrorSound: true
 SuccessfulSound: true
 
+# Configuration #
+
+OpPrefix: "&4"
+
 # Messages #
 
 Prefix: "&7[&4ASM&7]"
