@@ -368,6 +368,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                             if (!file.exists()) {
                                 file.createNewFile()
                             }
+
                             val config = YamlConfiguration.loadConfiguration(file)
                             if (!config.contains(playerUUID)) {
                                 config.set("$playerUUID.vanish", true)
