@@ -14,7 +14,7 @@ class SearchGUI(plugin: AdvancedServerManager) : Utils(plugin) {
     var existsPlayerObject: Player? = null
 
     fun createSearchGUI(sender: Player, plugin: AdvancedServerManager) {
-        AnvilGUI.Builder()
+            AnvilGUI.Builder()
             .onClose {
                 if (exists && existsPlayerObject != null) {
                     selectedPlayerGUI.createSelectedPlayerGUI(sender, existsPlayerObject!!)
@@ -42,5 +42,5 @@ class SearchGUI(plugin: AdvancedServerManager) : Utils(plugin) {
             .title("Search for a player")
             .plugin(plugin)
             .open(sender)
+        }
     }
-}

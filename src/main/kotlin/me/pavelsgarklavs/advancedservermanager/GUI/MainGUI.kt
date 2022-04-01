@@ -425,7 +425,7 @@ class MainGUI(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
                 .name(Component.text("Offline Players", NamedTextColor.GOLD, TextDecoration.BOLD))
                 .asGuiItem {
                     if (player.hasPermission("advancedservermanager.players")) {
-                        OfflinePlayersGUI(plugin).open(player)
+                        OfflinePlayersGUI(plugin, player).open(player)
                     }
                 }
 

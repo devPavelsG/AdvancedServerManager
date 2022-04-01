@@ -9,10 +9,20 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.entity.Player
 
-class OfflinePlayersGUI(plugin: AdvancedServerManager) : Utils(plugin) {
+class OfflinePlayersGUI(plugin: AdvancedServerManager, private var sender: Player) : Utils(plugin) {
+    private val searchGUI: SearchGUI = SearchGUI(plugin)
+    private val selectedPlayerGUI: SelectedPlayerGUI = SelectedPlayerGUI(plugin)
     private lateinit var playersGUI: PaginatedGui
+
+    private val searchItem = ItemBuilder
+        .from(Material.COMPASS)
+        .name(Component.text("Search Player", NamedTextColor.AQUA, TextDecoration.BOLD))
+        .asGuiItem {
+            searchGUI.createSearchGUI(sender, plugin)
+        }
 
     init {
         createGUI()
@@ -34,11 +44,18 @@ class OfflinePlayersGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                     ItemBuilder.skull()
                         .owner(player)
                         .name(it)
-                        .asGuiItem()
+                        .asGuiItem {
+                            val offlinePlayer = Bukkit.getPlayerExact(player.name!!)
+                            println(offlinePlayer)
+                            if (offlinePlayer != null) {
+                                selectedPlayerGUI.createSelectedPlayerGUI(sender, offlinePlayer)
+                            }
+                        }
                 }
                 if (skullItem != null) {
                     playersGUI.addItem(skullItem)
                 }
+                playersGUI.setItem(49, searchItem)
             }
         }
     }

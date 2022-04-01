@@ -17,7 +17,7 @@ class BuildModeListener(plugin: AdvancedServerManager) : Listener, Utils(plugin)
     @EventHandler
     fun breakBlockEvent(breakEvent: PlayerInteractEvent) {
         val player = breakEvent.player
-        if (breakEvent.action == Action.LEFT_CLICK_BLOCK || breakEvent.action == Action.RIGHT_CLICK_BLOCK && player.gameMode == GameMode.CREATIVE) {
+        if ((breakEvent.action == Action.LEFT_CLICK_BLOCK || breakEvent.action == Action.RIGHT_CLICK_BLOCK) && player.gameMode == GameMode.CREATIVE) {
             try {
                 val playerUUID = player.uniqueId.toString()
                 val file = File(plugin.dataFolder, "players.yml")
