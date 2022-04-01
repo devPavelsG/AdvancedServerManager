@@ -11,7 +11,7 @@ class RespawnListener(plugin: AdvancedServerManager) : Listener, Utils(plugin) {
     @EventHandler
     fun respawnEvent(event: PlayerRespawnEvent) {
         val spawnLocation = Bukkit.getWorld("world")?.spawnLocation
-        if (spawnLocation != null) {
+        if (spawnLocation != null && !event.isBedSpawn && !event.isAnchorSpawn) {
             event.respawnLocation = spawnLocation
         }
     }
