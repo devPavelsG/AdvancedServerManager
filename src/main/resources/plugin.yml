@@ -54,3 +54,9 @@ commands:
   vanish:
     description: Hide from other players
     usage: /<command>
+  setspawn:
+    description: Set spawn for the Server
+    usage: /<command>
+  spawn:
+    description: Go to spawn of the Server
+    usage: /<command>

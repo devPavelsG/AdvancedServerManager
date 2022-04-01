@@ -72,6 +72,10 @@ BuildModeWhenNotCreative: "&6You must be in creative mode to switch build mode!"
 VanishOn: "&6Vanish on!"
 VanishOff: "&6Vanish off!"
 
+SetSpawn: "&6Spawn location is set!"
+InvalidSetSpawnWorld: "&4Spawn can be set only in overworld!"
+Spawn: "&6You teleported to spawn successfully!"
+
 # GUI TITLE MESSAGES #
 
 CreativeTitle: "&6Creative Mode"
