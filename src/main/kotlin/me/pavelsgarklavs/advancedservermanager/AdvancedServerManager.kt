@@ -6,6 +6,7 @@ import me.pavelsgarklavs.advancedservermanager.commands.Home.HomeCommand
 import me.pavelsgarklavs.advancedservermanager.commands.Home.SetHomeCommand
 import me.pavelsgarklavs.advancedservermanager.listeners.BuildModeListener
 import me.pavelsgarklavs.advancedservermanager.listeners.OperatorListener
+import me.pavelsgarklavs.advancedservermanager.listeners.RespawnListener
 import me.pavelsgarklavs.advancedservermanager.listeners.StaffChatListener
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -32,6 +33,7 @@ class AdvancedServerManager : JavaPlugin() {
         server.pluginManager.registerEvents(StaffChatListener(this), this)
         server.pluginManager.registerEvents(BuildModeListener(this), this)
         server.pluginManager.registerEvents(OperatorListener(this), this)
+        server.pluginManager.registerEvents(RespawnListener(this), this)
 
         getCommand("admin")?.setExecutor(mainGui)
         getCommand("gm")?.setExecutor(gamemodeCommand)
