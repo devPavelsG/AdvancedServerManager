@@ -1,9 +1,11 @@
-package me.pavelsgarklavs.advancedservermanager.GUI.Players
+package me.pavelsgarklavs.advancedservermanager.GUI.Players.PlayerGUI
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import dev.triumphteam.gui.guis.PaginatedGui
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.SelectedPlayerGUI.SelectedOnlinePlayerGUI
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.SearchGUI.SearchOnlineGUI
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -14,15 +16,15 @@ import org.bukkit.entity.Player
 
 
 class OnlinePlayersGUI(plugin: AdvancedServerManager, private var sender: Player) : Utils(plugin) {
-    private val searchGUI: SearchGUI = SearchGUI(plugin)
-    private val selectedPlayerGUI: SelectedPlayerGUI = SelectedPlayerGUI(plugin)
+    private val searchOnlineGUI: SearchOnlineGUI = SearchOnlineGUI(plugin)
+    private val selectedOnlinePlayerGUI: SelectedOnlinePlayerGUI = SelectedOnlinePlayerGUI(plugin)
     lateinit var playersGUI: PaginatedGui
 
     private val searchItem = ItemBuilder
         .from(Material.COMPASS)
         .name(Component.text("Search Player", NamedTextColor.AQUA, TextDecoration.BOLD))
         .asGuiItem {
-            searchGUI.createSearchGUI(sender, plugin)
+            searchOnlineGUI.createSearchGUI(sender, plugin)
         }
 
     init {
@@ -44,7 +46,7 @@ class OnlinePlayersGUI(plugin: AdvancedServerManager, private var sender: Player
                 .owner(player)
                 .name(Component.text(player.name))
                 .asGuiItem {
-                    selectedPlayerGUI.createSelectedPlayerGUI(sender, player)
+                    selectedOnlinePlayerGUI.createSelectedPlayerGUI(sender, player)
                 }
             if (skullItem != null) {
                 playersGUI.addItem(skullItem)

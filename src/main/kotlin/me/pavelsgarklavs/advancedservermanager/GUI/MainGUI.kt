@@ -3,8 +3,8 @@ package me.pavelsgarklavs.advancedservermanager.GUI
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
-import me.pavelsgarklavs.advancedservermanager.GUI.Players.OfflinePlayersGUI
-import me.pavelsgarklavs.advancedservermanager.GUI.Players.OnlinePlayersGUI
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.PlayerGUI.OfflinePlayersGUI
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.PlayerGUI.OnlinePlayersGUI
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor

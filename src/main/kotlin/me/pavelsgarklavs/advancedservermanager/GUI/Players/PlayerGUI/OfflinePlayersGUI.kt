@@ -1,9 +1,12 @@
-package me.pavelsgarklavs.advancedservermanager.GUI.Players
+package me.pavelsgarklavs.advancedservermanager.GUI.Players.PlayerGUI
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import dev.triumphteam.gui.guis.PaginatedGui
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.SearchGUI.SearchOfflineGUI
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.SelectedPlayerGUI.SelectedOfflinePlayerGUI
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.SearchGUI.SearchOnlineGUI
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -13,15 +16,15 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 
 class OfflinePlayersGUI(plugin: AdvancedServerManager, private var sender: Player) : Utils(plugin) {
-    private val searchGUI: SearchGUI = SearchGUI(plugin)
-    private val selectedPlayerGUI: SelectedPlayerGUI = SelectedPlayerGUI(plugin)
+    private val searchOfflineGUI: SearchOfflineGUI = SearchOfflineGUI(plugin)
+    private val selectedOfflinePlayerGUI: SelectedOfflinePlayerGUI = SelectedOfflinePlayerGUI(plugin)
     private lateinit var playersGUI: PaginatedGui
 
     private val searchItem = ItemBuilder
         .from(Material.COMPASS)
         .name(Component.text("Search Player", NamedTextColor.AQUA, TextDecoration.BOLD))
         .asGuiItem {
-            searchGUI.createSearchGUI(sender, plugin)
+            searchOfflineGUI.createSearchGUI(sender, plugin)
         }
 
     init {
@@ -45,11 +48,7 @@ class OfflinePlayersGUI(plugin: AdvancedServerManager, private var sender: Playe
                         .owner(player)
                         .name(it)
                         .asGuiItem {
-                            val offlinePlayer = Bukkit.getPlayerExact(player.name!!)
-                            println(offlinePlayer)
-                            if (offlinePlayer != null) {
-                                selectedPlayerGUI.createSelectedPlayerGUI(sender, offlinePlayer)
-                            }
+                            selectedOfflinePlayerGUI.createSelectedPlayerGUI(sender, player)
                         }
                 }
                 if (skullItem != null) {

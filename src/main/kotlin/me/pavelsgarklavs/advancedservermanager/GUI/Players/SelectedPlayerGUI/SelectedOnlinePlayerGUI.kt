@@ -1,4 +1,4 @@
-package me.pavelsgarklavs.advancedservermanager.GUI.Players
+package me.pavelsgarklavs.advancedservermanager.GUI.Players.SelectedPlayerGUI
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
@@ -7,15 +7,12 @@ import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Bukkit
-import org.bukkit.GameMode
-import org.bukkit.Location
-import org.bukkit.Material
+import org.bukkit.*
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
 
-class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
+class SelectedOnlinePlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
     fun createSelectedPlayerGUI(sender: Player, player: Player) {
         val selectedPlayer = Gui.gui()
             .title(Component.text("Player: ${player.name}", NamedTextColor.GOLD, TextDecoration.BOLD))
@@ -328,6 +325,27 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 guiClose()
             }
 
+        /* Ban Player */
+        val banItem = ItemBuilder
+            .from(Material.OBSIDIAN)
+            .name(Component.text("Ban", NamedTextColor.RED, TextDecoration.BOLD))
+            .asGuiItem {
+                val banList = Bukkit.getBanList(BanList.Type.NAME)
+                val playerName = player.name
+                banList.addBan(playerName, null, null, null)
+                player.kickPlayer("You got banned by ${sender.name}!")
+                guiClose()
+            }
+
+        /* Kick Player */
+        val kickItem = ItemBuilder
+            .from(Material.REDSTONE)
+            .name(Component.text("Kick", NamedTextColor.GREEN, TextDecoration.BOLD))
+            .asGuiItem {
+                player.kickPlayer("You got kicked by ${sender.name}!")
+                guiClose()
+            }
+
         selectedPlayer.setItem(10, creativeItem)
         selectedPlayer.setItem(11, survivalItem)
         selectedPlayer.setItem(12, spectatorItem)
@@ -335,7 +353,9 @@ class SelectedPlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
         selectedPlayer.setItem(15, godItem)
         selectedPlayer.setItem(16, feedHealItem)
         selectedPlayer.setItem(28, homeItem)
+        selectedPlayer.setItem(29, banItem)
         selectedPlayer.setItem(34, teleportItem)
+        selectedPlayer.setItem(37, kickItem)
         selectedPlayer.setItem(43, teleportHereItem)
 
         selectedPlayer.open(sender)

@@ -1,31 +1,33 @@
-package me.pavelsgarklavs.advancedservermanager.GUI.Players
+package me.pavelsgarklavs.advancedservermanager.GUI.Players.SearchGUI
 
 import me.pavelsgarklavs.advancedservermanager.AdvancedServerManager
+import me.pavelsgarklavs.advancedservermanager.GUI.Players.SelectedPlayerGUI.SelectedOfflinePlayerGUI
 import me.pavelsgarklavs.advancedservermanager.utilities.Utils
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-class SearchGUI(plugin: AdvancedServerManager) : Utils(plugin) {
-    private val selectedPlayerGUI: SelectedPlayerGUI = SelectedPlayerGUI(plugin)
+class SearchOfflineGUI(plugin: AdvancedServerManager) : Utils(plugin) {
+    private val selectedOfflinePlayerGUI: SelectedOfflinePlayerGUI = SelectedOfflinePlayerGUI(plugin)
     var exists = false
-    var existsPlayerObject: Player? = null
+    var existsPlayerObject: OfflinePlayer? = null
 
     fun createSearchGUI(sender: Player, plugin: AdvancedServerManager) {
-            AnvilGUI.Builder()
+        AnvilGUI.Builder()
             .onClose {
                 if (exists && existsPlayerObject != null) {
-                    selectedPlayerGUI.createSelectedPlayerGUI(sender, existsPlayerObject!!)
+                    selectedOfflinePlayerGUI.createSelectedPlayerGUI(sender, existsPlayerObject!!)
                 } else {
                     val message = getConfigMessage("OfflineOrDoesNotExist")
                     sender.sendMessage(message)
                 }
             }
             .onComplete { _: Player, text: String ->
-                for (player in Bukkit.getOnlinePlayers()) {
-                    if (text.equals("Name: ${player.name}", ignoreCase = true)) {
+                for (player in Bukkit.getOfflinePlayers()) {
+                    if ((text.equals("Name: ${player.name}", ignoreCase = true)) && !player.isOnline) {
                         exists = true
                         existsPlayerObject = player
                     }
@@ -42,5 +44,5 @@ class SearchGUI(plugin: AdvancedServerManager) : Utils(plugin) {
             .title("Search for a player")
             .plugin(plugin)
             .open(sender)
-        }
     }
+}
