@@ -63,3 +63,6 @@ commands:
   repair:
     description: Repair item in hands(empty argument) or all
     usage: /<command>
+  back:
+    description: Go back to your last death location
+    usage: /<command>

@@ -11,6 +11,8 @@ import org.bukkit.inventory.meta.Damageable
 
 class RepairCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugin) {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
+        val setDurabilityToMax = 0
+
         if (args.isEmpty()) {
             ifPermissible(sender, "advancedservermanager.repair", {
                 val player: Player = sender as Player
@@ -19,7 +21,7 @@ class RepairCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plug
                 if (itemInMainHand.itemMeta != null) {
                     val newItemMeta = itemInMainHand.itemMeta
 
-                    (newItemMeta as Damageable).damage = 0
+                    (newItemMeta as Damageable).damage = setDurabilityToMax
 
                     itemInMainHand.itemMeta = newItemMeta
                     player.sendMessage(getConfigMessage("Repair"))
@@ -34,7 +36,7 @@ class RepairCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plug
                 for (item in inventoryContent) {
                     if (item != null) {
                         val newItemMeta = item.itemMeta
-                        (newItemMeta as Damageable).damage = 0
+                        (newItemMeta as Damageable).damage = setDurabilityToMax
 
                         item.itemMeta = newItemMeta
                     }
@@ -42,6 +44,8 @@ class RepairCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plug
                 player.sendMessage(getConfigMessage("RepairAll"))
             }, true)
             return  true
+        } else {
+            sender.sendMessage(getConfigMessage("ErrorArguments"))
         }
         return false
     }

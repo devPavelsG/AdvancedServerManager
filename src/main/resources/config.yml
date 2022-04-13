@@ -79,6 +79,10 @@ Spawn: "&6You teleported to spawn successfully!"
 Repair: "&6Item got repaired!"
 RepairAll: "&6Repaired all items in your inventory!"
 
+GoBack: "&6You went back to your last death!"
+BackDoesNotExist: "&4Back location does not exist!"
+OnDeathMessageGoBack: "&6Use /back to get back to your last death!"
+
 # GUI TITLE MESSAGES #
 
 CreativeTitle: "&6Creative Mode"

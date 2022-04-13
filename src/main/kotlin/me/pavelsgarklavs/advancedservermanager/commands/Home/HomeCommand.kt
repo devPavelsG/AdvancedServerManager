@@ -79,9 +79,7 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                 }
             }, true)
             return true
-        } else if (args.size >= 2) {
-            sender.sendMessage(getConfigMessage("ErrorArguments"))
-        }
+        } else if (args.size >= 2) sender.sendMessage(getConfigMessage("ErrorArguments"))
         return true
     }
 

@@ -27,6 +27,7 @@ class AdvancedServerManager : JavaPlugin() {
     private val setSpawnCommand: SetSpawnCommand = SetSpawnCommand(this)
     private val spawnCommand: SpawnCommand = SpawnCommand(this)
     private val repairCommand: RepairCommand = RepairCommand(this)
+    private val backCommand: BackCommand = BackCommand(this)
 
     override fun onEnable() {
         println("\u001b[31mAdvanced Server Manager has started! \u001b[32;1mAuthor: \u001b[31mDev_Pavels\u001b[0m")
@@ -52,6 +53,7 @@ class AdvancedServerManager : JavaPlugin() {
         getCommand("setspawn")?.setExecutor(setSpawnCommand)
         getCommand("spawn")?.setExecutor(spawnCommand)
         getCommand("repair")?.setExecutor(repairCommand)
+        getCommand("back")?.setExecutor(backCommand)
 
         config.options().copyDefaults()
         saveDefaultConfig()
