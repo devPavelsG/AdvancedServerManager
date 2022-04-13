@@ -76,6 +76,9 @@ SetSpawn: "&6Spawn location is set!"
 InvalidSetSpawnWorld: "&4Spawn can be set only in overworld!"
 Spawn: "&6You teleported to spawn successfully!"
 
+Repair: "&6Item got repaired!"
+RepairAll: "&6Repaired all items in your inventory!"
+
 # GUI TITLE MESSAGES #
 
 CreativeTitle: "&6Creative Mode"

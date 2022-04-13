@@ -60,3 +60,6 @@ commands:
   spawn:
     description: Go to spawn of the Server
     usage: /<command>
+  repair:
+    description: Repair item in hands(empty argument) or all
+    usage: /<command>
