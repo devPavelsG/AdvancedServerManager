@@ -55,7 +55,7 @@ class HomeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     val z = homes.get("$playerUUID.z")
                     val pitch = homes.get("$playerUUID.pitch")
                     val yaw = homes.get("$playerUUID.yaw")
-                    val playerWorld = homes.get("$playerUUID.world")
+                    val  playerWorld = homes.get("$playerUUID.world")
 
                     val world = Bukkit.getServer().getWorld(playerWorld.toString())
                     val loc = Location(

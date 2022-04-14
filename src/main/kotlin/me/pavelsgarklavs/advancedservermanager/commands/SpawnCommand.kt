@@ -20,9 +20,7 @@ class SpawnCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plugi
                 }
             }, true)
             return true
-        } else {
-            sender.sendMessage(getConfigMessage("ErrorArguments"))
-        }
+        } else sender.sendMessage(getConfigMessage("ErrorArguments"))
         return false
     }
 }

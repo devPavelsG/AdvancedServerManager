@@ -22,9 +22,7 @@ class SelectedOfflinePlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
         selectedPlayer.setDefaultClickAction { event -> event.isCancelled = true }
 
         fun guiClose() {
-            if (plugin.config.getBoolean("GUIAutoClose")) {
-                selectedPlayer.close(sender)
-            }
+            if (plugin.config.getBoolean("GUIAutoClose")) selectedPlayer.close(sender)
         }
         /* GUI Borders */
         val borderItem = ItemBuilder

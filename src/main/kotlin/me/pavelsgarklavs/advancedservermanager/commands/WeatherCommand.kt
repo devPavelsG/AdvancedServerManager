@@ -23,9 +23,7 @@ class WeatherCommand(plugin: AdvancedServerManager) : CommandExecutor, TabComple
             return true
         } else if (args.size >= 2) {
             sender.sendMessage(getConfigMessage("ErrorArguments"))
-        } else {
-            sender.sendMessage(getConfigMessage("AdditionalArgument"))
-        }
+        } else sender.sendMessage(getConfigMessage("AdditionalArgument"))
         return false
     }
 

@@ -33,9 +33,7 @@ class SearchOnlineGUI(plugin: AdvancedServerManager) : Utils(plugin) {
                 }
                 if (exists) {
                     return@onComplete AnvilGUI.Response.close()
-                } else {
-                    return@onComplete AnvilGUI.Response.close()
-                }
+                } else return@onComplete AnvilGUI.Response.close()
             }
             .preventClose()
             .text("Name: ")

@@ -17,13 +17,11 @@ class VanishCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plug
             try {
                 val playerUUID = player.uniqueId.toString()
                 val file = File(plugin.dataFolder, "players.yml")
-                if (!file.exists()) {
-                    file.createNewFile()
-                }
+
+                if (!file.exists()) file.createNewFile()
+
                 val config = YamlConfiguration.loadConfiguration(file)
-                if (!config.contains(playerUUID)) {
-                    config.set("$playerUUID.vanish", true)
-                }
+                if (!config.contains(playerUUID)) config.set("$playerUUID.vanish", true)
 
                 val isVanish = config.getBoolean("$playerUUID.vanish")
 

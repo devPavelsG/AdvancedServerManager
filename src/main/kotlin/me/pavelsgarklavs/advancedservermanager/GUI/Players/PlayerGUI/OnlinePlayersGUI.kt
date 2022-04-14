@@ -48,9 +48,7 @@ class OnlinePlayersGUI(plugin: AdvancedServerManager, private var sender: Player
                 .asGuiItem {
                     selectedOnlinePlayerGUI.createSelectedPlayerGUI(sender, player)
                 }
-            if (skullItem != null) {
-                playersGUI.addItem(skullItem)
-            }
+            playersGUI.addItem(skullItem)
             playersGUI.setItem(49, searchItem)
         }
     }
@@ -60,8 +58,6 @@ class OnlinePlayersGUI(plugin: AdvancedServerManager, private var sender: Player
 
         if (player.hasPermission("advancedservermanager.admin")) {
             playersGUI.open(player)
-        } else {
-            player.sendMessage(getConfigMessage("Permissions"))
-        }
+        } else player.sendMessage(getConfigMessage("Permissions"))
     }
 }

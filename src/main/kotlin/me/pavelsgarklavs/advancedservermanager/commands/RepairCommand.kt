@@ -44,9 +44,7 @@ class RepairCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(plug
                 player.sendMessage(getConfigMessage("RepairAll"))
             }, true)
             return  true
-        } else {
-            sender.sendMessage(getConfigMessage("ErrorArguments"))
-        }
+        } else sender.sendMessage(getConfigMessage("ErrorArguments"))
         return false
     }
 }

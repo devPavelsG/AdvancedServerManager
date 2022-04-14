@@ -27,9 +27,7 @@ class FlyCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                         player.isFlying = false
                         player.sendMessage(getConfigMessage("FlyOff"))
                     }
-                } else {
-                    player.sendMessage(getConfigMessage("FlyNotSurvival"))
-                }
+                } else player.sendMessage(getConfigMessage("FlyNotSurvival"))
             }, true)
             return true
         } else if (args.size == 1) {
@@ -45,18 +43,13 @@ class FlyCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter,
                             it.isFlying = false
                             sender.sendMessage(getConfigMessage("FlyOff"))
                         }
-                    } else {
-                        sender.sendMessage(getConfigMessage("FlyNotSurvival"))
-                    }
+                    } else sender.sendMessage(getConfigMessage("FlyNotSurvival"))
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             }, false)
             return true
-        } else if (args.size >= 2) {
-            sender.sendMessage(getConfigMessage("ErrorArguments"))
-        }
-
+        } else if (args.size >= 2) sender.sendMessage(getConfigMessage("ErrorArguments"))
         return false
     }
 

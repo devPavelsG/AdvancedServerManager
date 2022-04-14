@@ -33,9 +33,7 @@ class TimeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                 sender.sendMessage(getConfigMessage("UnknownTime"))
             } else if (args.size >= 2) {
                 sender.sendMessage(getConfigMessage("ErrorArguments"))
-            } else {
-                sender.sendMessage(getConfigMessage("AdditionalArgument"))
-            }
+            } else sender.sendMessage(getConfigMessage("AdditionalArgument"))
         } catch (e: NumberFormatException) {
             sender.sendMessage(getConfigMessage("UnknownTime"))
         }

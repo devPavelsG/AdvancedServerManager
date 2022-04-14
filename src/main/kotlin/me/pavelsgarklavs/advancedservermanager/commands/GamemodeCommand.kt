@@ -82,16 +82,11 @@ class GamemodeCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                         sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                     })
                 }, false)
-            } else {
-                sender.sendMessage(getConfigMessage("UnknownGamemode"))
-            }
+            } else sender.sendMessage(getConfigMessage("UnknownGamemode"))
             return true
         } else if (args.size >= 3) {
             sender.sendMessage(getConfigMessage("ErrorArguments"))
-        } else {
-            sender.sendMessage(getConfigMessage("AdditionalArgument"))
-        }
-
+        } else sender.sendMessage(getConfigMessage("AdditionalArgument"))
         return false
     }
 

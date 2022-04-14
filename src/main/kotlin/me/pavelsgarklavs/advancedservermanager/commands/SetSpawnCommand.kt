@@ -17,14 +17,10 @@ class SetSpawnCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(pl
                 if (overworld == player.world) {
                     overworld.spawnLocation = player.location
                     player.sendMessage(getConfigMessage("SetSpawn"))
-                } else {
-                    player.sendMessage(getConfigMessage("InvalidSetSpawnWorld"))
-                }
+                } else player.sendMessage(getConfigMessage("InvalidSetSpawnWorld"))
             }, true)
             return true
-        } else {
-            sender.sendMessage(getConfigMessage("ErrorArguments"))
-        }
+        } else sender.sendMessage(getConfigMessage("ErrorArguments"))
         return false
     }
 }

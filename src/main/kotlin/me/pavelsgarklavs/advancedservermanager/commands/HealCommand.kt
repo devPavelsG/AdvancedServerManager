@@ -25,17 +25,13 @@ class HealCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompleter
                     if (getConfigMessage("HealOthers").contains("%player_name%")) {
                         val message = getConfigMessage("HealOthers").replace("%player_name%", args[0])
                         sender.sendMessage(message)
-                    } else {
-                        sender.sendMessage(getConfigMessage("HealOthers"))
-                    }
+                    } else sender.sendMessage(getConfigMessage("HealOthers"))
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
             }, false)
             return true
-        } else if (args.size >= 2) {
-            sender.sendMessage(getConfigMessage("ErrorArguments"))
-        }
+        } else if (args.size >= 2) sender.sendMessage(getConfigMessage("ErrorArguments"))
         return false
     }
 

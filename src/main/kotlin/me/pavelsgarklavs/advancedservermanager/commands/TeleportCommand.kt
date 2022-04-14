@@ -22,16 +22,12 @@ class TeleportCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                 getOnlinePlayer(args[0]).ifPresentOrElse({
                     val player = Bukkit.getPlayer(args[0])
 
-                    if (player != null) {
-                        playerSender.teleport(player.location)
-                    }
+                    if (player != null) playerSender.teleport(player.location)
 
                     if (getConfigMessage("TeleportTo").contains("%player_name%")) {
                         val message = getConfigMessage("TeleportTo").replace("%player_name%", args[0])
                         sender.sendMessage(message)
-                    } else {
-                        sender.sendMessage(getConfigMessage("TeleportTo"))
-                    }
+                    } else sender.sendMessage(getConfigMessage("TeleportTo"))
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
@@ -52,12 +48,8 @@ class TeleportCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
                             val message = getConfigMessage("TeleportOther").replace("%player_name%", args[0])
                             val fullMessage = message.replace("%player_name_other%", args[1])
                             sender.sendMessage(fullMessage)
-                        } else {
-                            sender.sendMessage(getConfigMessage("TeleportOther"))
-                        }
-                    } else if (teleportToPlayer == null) {
-                        sender.sendMessage(getConfigMessage("OtherPlayerIsNotOnlineOrDoesNotExist"))
-                    }
+                        } else sender.sendMessage(getConfigMessage("TeleportOther"))
+                    } else if (teleportToPlayer == null) sender.sendMessage(getConfigMessage("OtherPlayerIsNotOnlineOrDoesNotExist"))
                 }, {
                     sender.sendMessage(getConfigMessage("OfflineOrDoesNotExist"))
                 })
@@ -65,9 +57,7 @@ class TeleportCommand(plugin: AdvancedServerManager) : CommandExecutor, TabCompl
             return true
         } else if (args.size >= 3) {
             sender.sendMessage(getConfigMessage("ErrorArguments"))
-        } else {
-            sender.sendMessage(getConfigMessage("AdditionalArgument"))
-        }
+        } else sender.sendMessage(getConfigMessage("AdditionalArgument"))
         return false
     }
 

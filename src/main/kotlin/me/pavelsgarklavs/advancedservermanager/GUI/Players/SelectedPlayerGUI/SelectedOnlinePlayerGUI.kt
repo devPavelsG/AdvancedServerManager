@@ -21,9 +21,7 @@ class SelectedOnlinePlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
         selectedPlayer.setDefaultClickAction { event -> event.isCancelled = true }
 
         fun guiClose() {
-            if (plugin.config.getBoolean("GUIAutoClose")) {
-                selectedPlayer.close(sender)
-            }
+            if (plugin.config.getBoolean("GUIAutoClose")) selectedPlayer.close(sender)
         }
 
         /* GUI Borders */
@@ -70,22 +68,18 @@ class SelectedOnlinePlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
             .asGuiItem {
                 if (player.gameMode !== GameMode.CREATIVE) {
                     player.gameMode = GameMode.CREATIVE
-                    if (plugin.config.getBoolean("GUISendTitle")) {
-                        sender.sendTitle(
+                    if (plugin.config.getBoolean("GUISendTitle")) sender.sendTitle(
                             getGUIConfigMessage("CreativeTitle"),
                             getGUIConfigMessage("CreativeSubtitleOn"),
                             10, 60, 20
                         )
-                    }
                 } else {
                     player.gameMode = GameMode.SURVIVAL
-                    if (plugin.config.getBoolean("GUISendTitle")) {
-                        sender.sendTitle(
+                    if (plugin.config.getBoolean("GUISendTitle")) sender.sendTitle(
                             getGUIConfigMessage("CreativeTitle"),
                             getGUIConfigMessage("CreativeSubtitleOff"),
                             10, 60, 20
                         )
-                    }
                 }
                 onButtonSound(sender)
                 guiClose()
@@ -98,24 +92,18 @@ class SelectedOnlinePlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
             .asGuiItem {
                 if (player.gameMode !== GameMode.SURVIVAL) {
                     player.gameMode = GameMode.SURVIVAL
-                    if (plugin.config.getBoolean("GUISendTitle")) {
-                        sender.sendTitle(
+                    if (plugin.config.getBoolean("GUISendTitle")) sender.sendTitle(
                             getGUIConfigMessage("SurvivalTitle"),
                             getGUIConfigMessage("SurvivalSubtitleOn"),
                             10, 60, 20
                         )
-                    }
                     onButtonSound(sender)
-                } else {
-                    if (plugin.config.getBoolean("GUISendTitle")) {
-                        sender.sendTitle(
+                } else if (plugin.config.getBoolean("GUISendTitle")) sender.sendTitle(
                             getGUIConfigMessage("SurvivalAlreadyOnTitle"),
                             getGUIConfigMessage("SurvivalSubtitleOn"),
                             10, 60, 20
                         )
-                    }
                     errorButtonSound(sender)
-                }
                 guiClose()
             }
 
@@ -126,22 +114,18 @@ class SelectedOnlinePlayerGUI(plugin: AdvancedServerManager) : Utils(plugin) {
             .asGuiItem {
                 if (player.gameMode !== GameMode.SPECTATOR) {
                     player.gameMode = GameMode.SPECTATOR
-                    if (plugin.config.getBoolean("GUISendTitle")) {
-                        sender.sendTitle(
+                    if (plugin.config.getBoolean("GUISendTitle")) sender.sendTitle(
                             getGUIConfigMessage("SpectatorTitle"),
                             getGUIConfigMessage("SpectatorSubtitleOn"),
                             10, 60, 20
                         )
-                    }
                 } else {
                     player.gameMode = GameMode.SURVIVAL
-                    if (plugin.config.getBoolean("GUISendTitle")) {
-                        sender.sendTitle(
+                    if (plugin.config.getBoolean("GUISendTitle")) sender.sendTitle(
                             getGUIConfigMessage("SpectatorTitle"),
                             getGUIConfigMessage("SpectatorSubtitleOff"),
                             10, 60, 20
                         )
-                    }
                 }
                 onButtonSound(sender)
                 guiClose()

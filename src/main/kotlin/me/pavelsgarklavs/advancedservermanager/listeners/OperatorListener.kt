@@ -15,8 +15,6 @@ class OperatorListener(plugin: AdvancedServerManager) : Listener, Utils(plugin) 
             val prefix = plugin.config.getString("OpPrefix")?.let { ChatColor.translateAlternateColorCodes('&', it) }
             val displayName = player.displayName
             player.setDisplayName("${prefix}${displayName}")
-        } else {
-            player.setDisplayName(player.name)
-        }
+        } else player.setDisplayName(player.name)
     }
 }

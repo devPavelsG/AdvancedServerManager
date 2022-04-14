@@ -13,17 +13,15 @@ class RespawnListener(plugin: AdvancedServerManager) : Listener, Utils(plugin) {
     @EventHandler
     fun respawnEvent(event: PlayerRespawnEvent) {
         val spawnLocation = Bukkit.getWorld("world")?.spawnLocation
-        if (spawnLocation != null && !event.isBedSpawn && !event.isAnchorSpawn) {
-            event.respawnLocation = spawnLocation
-        }
+        if (spawnLocation != null && !event.isBedSpawn && !event.isAnchorSpawn) event.respawnLocation = spawnLocation
 
         try {
             val playerUUID = event.player.uniqueId.toString()
             val player = event.player
             val file = File(plugin.dataFolder, "lastdeath.yml")
-            if (!file.exists()) {
-                file.createNewFile()
-            }
+
+            if (!file.exists()) file.createNewFile()
+
             val config = YamlConfiguration.loadConfiguration(file)
             config.set("$playerUUID.x", player.location.blockX)
             config.set("$playerUUID.y", player.location.blockY)

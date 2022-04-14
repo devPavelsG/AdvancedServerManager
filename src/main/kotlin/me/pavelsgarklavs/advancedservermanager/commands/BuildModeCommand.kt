@@ -34,9 +34,7 @@ class BuildModeCommand(plugin: AdvancedServerManager) : CommandExecutor, Utils(p
                     } else if (!isInBuildMode && player.gameMode == GameMode.CREATIVE) {
                         player.sendMessage(getConfigMessage("BuildModeOn"))
                         config.set("$playerUUID.buildmode", true)
-                    } else {
-                        player.sendMessage(getConfigMessage("BuildModeWhenNotCreative"))
-                    }
+                    } else player.sendMessage(getConfigMessage("BuildModeWhenNotCreative"))
                     config.save(file)
                 } catch (e: Exception) {
                     e.printStackTrace()
